@@ -1,5 +1,6 @@
 import React from 'react'
 import {TechCard} from './TechCard'
+import {connect} from 'react-redux'
 
 export class TechPoll extends React.Component {
   render() {
@@ -12,3 +13,11 @@ export class TechPoll extends React.Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    tech: state.get('tech')
+  }
+}
+
+export const TechPollContainer = connect(mapStateToProps)(TechPoll)
