@@ -17,6 +17,7 @@ System.config({
     "babel": "npm:babel-core@5.8.35",
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "core-js": "npm:core-js@1.2.6",
+    "immutable": "npm:immutable@3.7.6",
     "react": "npm:react@0.14.7",
     "react-dom": "npm:react-dom@0.14.7",
     "react-router": "npm:react-router@2.0.1",
