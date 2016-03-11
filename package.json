@@ -1,0 +1,36 @@
+{
+  "name": "techpoll",
+  "version": "0.0.1",
+  "description": "Interactive tech voting site",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtinning/techpoll.git"
+  },
+  "keywords": [
+    "reactjs",
+    "redux",
+    "jspm",
+    "tech",
+    "techpoll"
+  ],
+  "author": "Michael Tinning",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mtinning/techpoll/issues"
+  },
+  "homepage": "https://github.com/mtinning/techpoll#readme",
+  "jspm": {
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  },
+  "devDependencies": {
+    "jspm": "^0.16.31"
+  }
+}
