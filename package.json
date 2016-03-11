@@ -4,6 +4,9 @@
   "description": "Interactive tech voting site",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently --kill-others \"npm run serve\" \"npm run watch\"",
+    "serve": "node server.js app",
+    "watch": "chokidar-socket-emitter",
     "test": "mocha --compilers js:babel-register --recursive app/**/*.spec.js"
   },
   "repository": {
@@ -28,6 +31,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "concurrently": "^2.0.0",
     "jspm": "^0.16.31",
     "mocha": "^2.4.5"
   },
@@ -49,7 +53,8 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
+      "core-js": "npm:core-js@^1.1.4",
+      "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.5.6"
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'systemjs-hot-reloader/default-listener'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, Route, hashHistory} from 'react-router'
@@ -17,6 +19,8 @@ const routes = (
 
 const store = createStore(reducer)
 
+const rootNode = document.getElementById('app')
+
 const initialState = {
   tech: [
     {'name': 'React', 'category': 'Web Front-End' },
@@ -33,5 +37,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>{routes}</Router>
   </Provider>,
-  document.getElementById('app')
+  rootNode
 )
+
+export function __unload() {
+  ReactDOM.unmountComponentAtNode(rootNode)
+}
