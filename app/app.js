@@ -3,7 +3,7 @@ import 'systemjs-hot-reloader/default-listener'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, Route, hashHistory} from 'react-router'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import {Map} from 'immutable'
 import $ from 'jquery'
@@ -12,6 +12,7 @@ import {App} from './components/App'
 import {TechPollContainer} from './components/TechPoll'
 import reducer from './store/reducer'
 import {setState} from './store/action-creators'
+import apiActionMiddleware from './api/api-action-middleware'
 
 const routes = (
 <Route component={App}>
@@ -19,7 +20,11 @@ const routes = (
 </Route>
 )
 
-const store = createStore(reducer)
+const createStoreWithMiddleware = applyMiddleware(
+  apiActionMiddleware
+)(createStore)
+
+const store = createStoreWithMiddleware(reducer)
 
 const rootNode = document.getElementById('app')
 
