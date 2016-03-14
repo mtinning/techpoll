@@ -23,11 +23,11 @@ const rootNode = document.getElementById('app')
 
 const initialState = {
   tech: [
-    {'name': 'React', 'category': 'Web Front-End' },
-    {'name': 'Angular 1.4', 'category': 'Web Front-End'},
-    {'name': 'Angular 2', 'category': 'Web Front-End'},
-    {'name': 'Aurelia', 'category': 'Web Front-End'},
-    {'name': 'NodeJS', 'category': 'Web Back-End'}
+    { name: 'React', category: 'Web Front-End', score: 0 },
+    { name: 'Angular 1.4', category: 'Web Front-End', score: 0 },
+    { name: 'Angular 2', category: 'Web Front-End', score: 0 },
+    { name: 'Aurelia', category: 'Web Front-End', score: 0 },
+    { name: 'NodeJS', category: 'Web Back-End', score: 0 }
   ]
 }
 

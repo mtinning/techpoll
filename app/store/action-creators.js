@@ -4,3 +4,13 @@ export function setState(state) {
     state
   }
 }
+
+export function vote(item, score) {
+  return {
+    type: 'VOTE',
+    vote: {
+      item,
+      score
+    }
+  }
+}
