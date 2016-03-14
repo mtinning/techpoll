@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm run serve\" \"npm run watch\"",
-    "serve": "node server.js app",
+    "serve": "node server/server.js app",
     "watch": "chokidar-socket-emitter",
     "test": "mocha --compilers js:babel-register --recursive app/**/*.spec.js"
   },
@@ -31,11 +31,13 @@
     "babel-preset-react": "^6.5.0",
     "babel-register": "^6.7.2",
     "chai": "^3.5.0",
+    "chokidar-socket-emitter": "^0.5.0",
     "concurrently": "^2.0.0",
     "jspm": "^0.16.31",
     "mocha": "^2.4.5"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
     "express": "^4.13.4"
   },
   "jspm": {
@@ -44,6 +46,7 @@
     },
     "dependencies": {
       "immutable": "npm:immutable@^3.7.6",
+      "jquery": "npm:jquery@^2.2.1",
       "react": "npm:react@^0.14.7",
       "react-dom": "npm:react-dom@^0.14.7",
       "react-redux": "npm:react-redux@^4.4.0",

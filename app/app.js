@@ -6,6 +6,8 @@ import {Router, Route, hashHistory} from 'react-router'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import {Map} from 'immutable'
+import $ from 'jquery'
+
 import {App} from './components/App'
 import {TechPollContainer} from './components/TechPoll'
 import reducer from './store/reducer'
@@ -21,24 +23,15 @@ const store = createStore(reducer)
 
 const rootNode = document.getElementById('app')
 
-const initialState = {
-  tech: [
-    { name: 'React', category: 'Web Front-End', score: 0 },
-    { name: 'Angular 1.4', category: 'Web Front-End', score: 0 },
-    { name: 'Angular 2', category: 'Web Front-End', score: 0 },
-    { name: 'Aurelia', category: 'Web Front-End', score: 0 },
-    { name: 'NodeJS', category: 'Web Back-End', score: 0 }
-  ]
-}
-
-store.dispatch(setState(initialState))
-
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={hashHistory}>{routes}</Router>
-  </Provider>,
-  rootNode
-)
+$.get('/api/tech', tech => {
+  store.dispatch(setState({tech: tech}))
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={hashHistory}>{routes}</Router>
+    </Provider>,
+    rootNode
+  )
+})
 
 export function __unload() {
   ReactDOM.unmountComponentAtNode(rootNode)
