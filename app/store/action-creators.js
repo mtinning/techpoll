@@ -5,13 +5,11 @@ export function setState(state) {
   }
 }
 
-export function vote(item, score) {
+export function vote(item, vote) {
   return {
     type: 'VOTE',
-    vote: {
-      item,
-      score
-    }
+    item,
+    vote
   }
 }
 
