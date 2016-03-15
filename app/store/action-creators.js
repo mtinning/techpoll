@@ -14,3 +14,10 @@ export function vote(item, score) {
     }
   }
 }
+
+export function newTech(item) {
+  return {
+    type: 'NEW',
+    item
+  }
+}

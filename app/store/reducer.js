@@ -1,4 +1,4 @@
-import {Map} from 'immutable'
+import {Map, fromJS} from 'immutable'
 
 export default function(state = Map(), action) {
 
@@ -13,11 +13,17 @@ export default function(state = Map(), action) {
       t => t.set('score', t.get('score') + vote.score)))
   }
 
+  function addTech(state, item) {
+    return state.set('tech', state.get('tech').push(fromJS(item)))
+  }
+
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state)
     case 'VOTE':
       return vote(state, action.vote)
+    case 'NEW':
+        return addTech(state, action.item)
   }
 
   return state
