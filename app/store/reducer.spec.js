@@ -1,26 +1,14 @@
-import System from 'jspm'
 import {expect} from 'chai'
-import assert from 'assert'
 
-const systemImport = {
-  then: (f) => {
-    return Promise.all([System.import('store/reducer'), System.import('immutable')])
-      .catch(e => {
-        describe('JSPM', () => {
-          it ('ES6 module not loaded properly', done => {
-            assert.fail(null, '', e)
-          })
-        })
-      })
-      .then(modules => {
-        f(modules[0].default, modules[1].Map, modules[1].fromJS)
-      })
-  }
+import loadModules from '../test-utils/systemjs-loader'
+
+function loadTestModules(onSuccess) {
+  return loadModules({ 'store/reducer': [m => m.default], 'immutable': [m => m.Map, m => m.fromJS]}, onSuccess)
 }
 
 describe('reducer', () => {
-  it('handles SET_STATE', () => { return systemImport.then((reducer, Map, fromJS) => {
-    
+  it('handles SET_STATE', () => loadTestModules((reducer, Map, fromJS) => {
+
     const initialState = Map()
     const stateToTransitionTo = { tech: [
       {
@@ -42,8 +30,8 @@ describe('reducer', () => {
     const nextState = reducer(initialState, action)
     const expectedState = fromJS(stateToTransitionTo)
     expect(nextState).to.deep.equal(expectedState)
-  })})
-  it('handles VOTE', () => { return systemImport.then((reducer, Map, fromJS) => {
+  }))
+  it('handles VOTE', () => loadTestModules((reducer, Map, fromJS) => {
     const initialStateJs = {
       tech: [
         {
@@ -65,13 +53,14 @@ describe('reducer', () => {
 
     const action = {
       type: 'VOTE',
+      item: initialStateJs.tech[1],
       vote: {
-        item: fromJS(initialStateJs.tech[1]),
-        score: 1
+        score: 1,
+        comment: ""
       }
     }
 
     const nextState = reducer(initialState, action)
     expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  })})
+  }))
 })

@@ -1,9 +1,7 @@
-import $ from 'jquery'
-
-export default store => next => action => {
+export default repo => store => next => action => {
   switch (action.type) {
     case 'VOTE':
-      console.log('A vote happened!')
+      repo.addVote(action.item, action.vote)
   }
   return next(action)
 }

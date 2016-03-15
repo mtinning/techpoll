@@ -1,8 +1,9 @@
 const express = require('express')
-const techRepository = require('./tech-repository')
+const repository = require('../in-memory/tech-repository')
 
 const router = express.Router()
 
-router.get('/tech', (req, res) => res.json(techRepository.get()))
+router.get('/tech', (req, res) => res.json(repository.techRepository.get()))
+router.post('/tech/:id/votes', (req, res) => repository.votesRepository.add(req.params.id, req.body))
 
 module.exports = router

@@ -6,13 +6,13 @@ import {Router, Route, hashHistory} from 'react-router'
 import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import {Map} from 'immutable'
-import $ from 'jquery'
 
 import {App} from './components/App'
 import {TechPollContainer} from './components/TechPoll'
 import reducer from './store/reducer'
 import {setState} from './store/action-creators'
 import apiActionMiddleware from './api/api-action-middleware'
+import techRepository from './api/tech-repository'
 
 const routes = (
 <Route component={App}>
@@ -21,14 +21,14 @@ const routes = (
 )
 
 const createStoreWithMiddleware = applyMiddleware(
-  apiActionMiddleware
+  apiActionMiddleware(techRepository)
 )(createStore)
 
 const store = createStoreWithMiddleware(reducer)
 
 const rootNode = document.getElementById('app')
 
-$.get('/api/tech', tech => {
+techRepository.getTech(tech => {
   store.dispatch(setState({tech: tech}))
   ReactDOM.render(
     <Provider store={store}>
