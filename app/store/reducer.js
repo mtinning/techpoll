@@ -7,16 +7,18 @@ export default function(state = Map(), action) {
   }
 
   function vote(state, item, vote) {
-    return state.set('tech', state.get('tech').update(
-      state.get('tech').findIndex(t => t.get('name') === item.name),
-      t => t.set('score', t.get('score') + vote.score)))
+    if (state.get('name') !== item.name) return state
+    return state.update('score', v => v + vote.score)
   }
 
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state)
     case 'VOTE':
-      return vote(state, action.item, action.vote)
+      return state.update(
+        'tech',
+        v => v.map(t => vote(t, action.item, action.vote))
+      )
   }
 
   return state
