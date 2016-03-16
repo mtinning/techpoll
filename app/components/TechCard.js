@@ -1,10 +1,10 @@
 import React from 'react'
 
-const submitUpVote = submitVote => tech => {
+const submitUpVote = (submitVote, tech) => () => {
   submitVote(tech, { score: 1, comment: '' })
 }
 
-const submitDownVote = submitVote => tech => {
+const submitDownVote = (submitVote, tech) => () => {
   submitVote(tech, { score: -1, comment: '' })
 }
 
@@ -12,10 +12,10 @@ export const TechCard = ({ tech, submitVote }) => (
   <div>
     <div>{tech.name}</div>
     <div>Score: {tech.score}</div>
-    <button onClick={submitUpVote(submitVote)}>
+    <button onClick={submitUpVote(submitVote, tech)}>
       Vote Up!
     </button>
-    <button onClick={submitDownVote(submitVote)}>
+    <button onClick={submitDownVote(submitVote, tech)}>
       Vote Down!
     </button>
   </div>
