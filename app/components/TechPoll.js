@@ -1,7 +1,34 @@
 import React from 'react'
+import {TechCard} from './TechCard'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import * as actionCreators from '../store/action-creators'
 
 export class TechPoll extends React.Component {
   render() {
-    return <h2>Welcome to Tech Poll!</h2>
+    var techList = this.props.tech
+      .sort((a, b) => b.score - a.score)
+      .map(t => <TechCard key={t.name} tech={t} vote={this.props.vote}></TechCard>)
+    return (
+      <div>
+        <h2>{'TechPoll'}</h2>
+        {techList}
+      </div>
+    )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    tech: state.get('tech').toJS()
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export const TechPollContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TechPoll)
