@@ -1,6 +1,6 @@
 import React from 'react'
 import {TechCard} from './TechCard'
-import {NewTech} from './NewTech'
+import {AddTech} from './AddTech'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as actionCreators from '../store/action-creators'
@@ -15,7 +15,7 @@ export class TechPoll extends React.Component {
       <div>
         <h2>{'TechPoll'}</h2>
         {techList}
-        <NewTech newTech={this.props.newTech}/>
+        <AddTech addTech={this.props.addTech}/>
       </div>
     )
   }

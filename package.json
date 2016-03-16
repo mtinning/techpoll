@@ -7,7 +7,7 @@
     "start": "concurrently --kill-others \"npm run serve\" \"npm run watch\"",
     "serve": "node server/server.js app",
     "watch": "chokidar-socket-emitter",
-    "test": "mocha --compilers js:babel-register --recursive app/**/*.spec.js"
+    "test": "mocha --compilers js:babel-register --recursive app/api/*.spec.js app/store/*.spec.js"
   },
   "repository": {
     "type": "git",

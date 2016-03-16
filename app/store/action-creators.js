@@ -13,9 +13,9 @@ export function vote(item, vote) {
   }
 }
 
-export function newTech(item) {
+export function addTech(item) {
   return {
-    type: 'NEW',
+    type: 'ADD',
     item
   }
 }

@@ -13,7 +13,16 @@ export default function(state = Map(), action) {
   }
 
   function addTech(state, item) {
-    return state.set('tech', state.get('tech').push(fromJS(item)))
+    // check if item being added already exists
+    var index = state.get('tech').findIndex(t => t.get('name') === item.name)
+
+    if (index >= 0) {
+      console.log('Tech: \''+ item.name + '\' already exists')
+      return state
+    }
+    else {
+      return state.set('tech', state.get('tech').push(fromJS(item)))
+    }
   }
 
   switch (action.type) {
@@ -21,7 +30,7 @@ export default function(state = Map(), action) {
       return setState(state, action.state)
     case 'VOTE':
       return vote(state, action.item, action.vote)
-    case 'NEW':
+    case 'ADD':
       return addTech(state, action.item)
   }
 
