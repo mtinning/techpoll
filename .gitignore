@@ -2,3 +2,4 @@ node_modules/*
 app/jspm_packages/*
 npm-debug.log
 app/app.css
+.vscode/

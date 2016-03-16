@@ -4,10 +4,8 @@ function setState(state, newState) {
   return state.merge(newState)
 }
 
-function submitVote(state, item, vote) {
-  return state.set('tech', state.get('tech').update(
-    state.get('tech').findIndex(t => t.get('name') === item.name),
-    t => t.set('score', t.get('score') + vote.score)))
+function submitVote(item, vote) {
+  return item.update('score', v => v + vote.score)
 }
 
 export default function (state = Map(), action) {
@@ -15,7 +13,12 @@ export default function (state = Map(), action) {
     case 'SET_STATE':
       return setState(state, action.state)
     case 'VOTE':
-      return submitVote(state, action.item, action.vote)
+      return state.update(
+        'tech',
+        v => v.map(t =>
+          t.get('name') === action.item.name ? submitVote(t, action.vote) : t
+        )
+      )
     default:
       return state
   }
