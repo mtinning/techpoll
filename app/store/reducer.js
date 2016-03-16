@@ -6,9 +6,8 @@ export default function(state = Map(), action) {
     return state.merge(newState)
   }
 
-  function vote(state, item, vote) {
-    if (state.get('name') !== item.name) return state
-    return state.update('score', v => v + vote.score)
+  function vote(item, vote) {
+    return item.update('score', v => v + vote.score)
   }
 
   switch (action.type) {
@@ -17,7 +16,9 @@ export default function(state = Map(), action) {
     case 'VOTE':
       return state.update(
         'tech',
-        v => v.map(t => vote(t, action.item, action.vote))
+        v => v.map(t =>
+          t.get('name') === action.item.name ? vote(t, action.vote) : t
+        )
       )
   }
 
