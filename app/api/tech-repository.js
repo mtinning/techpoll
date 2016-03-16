@@ -9,5 +9,5 @@ export default {
           onSuccess(data)
         }
       })
-  }
+  },
 }

@@ -30,7 +30,7 @@ npm test
 - [Redux](https://github.com/reactjs/redux)
 - [Official React bindings for Redux](https://github.com/reactjs/react-redux)
 - [jQuery](https://jquery.com) (for AJAX)
-- [JSPM](http://jspm.io/) (for package management) with [SystemJS](https://github.com/systemjs/systemjs) (for module loading)
+- [JSPM](http://jspm.io/) (for package management) with - [SystemJS](https://github.com/systemjs/systemjs) (for module loading)
 
 ### Front End Tests
 
@@ -40,7 +40,13 @@ npm test
 - [Sinon](http://sinonjs.org/) - test spies
 - // TODO [chai-immutable](http://chaijs.com/plugins/chai-immutable/) - extends chai with assertions for Facebook's immutable library
 - // TODO [chai-as-promised](http://chaijs.com/plugins/chai-as-promised/) - chai-style assertions for promises
-- // TODO [sinon-chai](https://github.com/domenic/sinon-chai) - chai-style assertions for sinon
+- [sinon-chai](https://github.com/domenic/sinon-chai) - chai-style assertions for sinon
+
+### Front End Build
+
+- [eslint](http://eslint.org/) - configured with AirBnB style guidelines
+- [eslint-watch](https://www.npmjs.com/package/eslint-watch)
+- [SystemJS Hot Reloader](https://github.com/capaj/systemjs-hot-reloader) with [chokidar-socket-emitter](https://github.com/capaj/chokidar-socket-emitter)
 
 ### Back End
 

@@ -1,15 +1,14 @@
-import {Map} from 'immutable'
+import { Map } from 'immutable'
 
-export default function(state = Map(), action) {
+function setState(state, newState) {
+  return state.merge(newState)
+}
 
-  function setState(state, newState) {
-    return state.merge(newState)
-  }
+function submitVote(item, vote) {
+  return item.update('score', v => v + vote.score)
+}
 
-  function vote(item, vote) {
-    return item.update('score', v => v + vote.score)
-  }
-
+export default function (state = Map(), action) {
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state)
@@ -17,10 +16,10 @@ export default function(state = Map(), action) {
       return state.update(
         'tech',
         v => v.map(t =>
-          t.get('name') === action.item.name ? vote(t, action.vote) : t
+          t.get('name') === action.item.name ? submitVote(t, action.vote) : t
         )
       )
+    default:
+      return state
   }
-
-  return state
 }

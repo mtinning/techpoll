@@ -1,7 +1,9 @@
-import chai, {expect} from 'chai'
+/* global describe, it, afterEach*/
+/* eslint no-unused-expressions: 0*/
+
+import chai, { expect } from 'chai'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
-import assert from 'assert'
 
 chai.use(sinonChai)
 
@@ -12,10 +14,9 @@ function loadTestModules(onSuccess) {
 }
 
 describe('API Action Middleware', () => {
-
-  var repo = {
+  const repo = {
     getTech: sinon.spy(),
-    addVote: sinon.spy()
+    addVote: sinon.spy(),
   }
 
   afterEach(() => {
@@ -24,16 +25,15 @@ describe('API Action Middleware', () => {
   })
 
   describe('VOTE actions', () => {
-
-    var action = {
+    const action = {
       type: 'VOTE',
       item: {
-        id: 'test_id'
+        id: 'test_id',
       },
       vote: {
         score: 1,
-        message: "test_message"
-      }
+        message: 'test_message',
+      },
     }
 
     it('should call addVote once', () => loadTestModules((middleware) => {
@@ -55,9 +55,9 @@ describe('API Action Middleware', () => {
     }))
   })
   describe('SET_STATE actions', () => {
-    var action = {
+    const action = {
       type: 'SET_STATE',
-      state: {}
+      state: {},
     }
 
     it('should not call addVote', () => loadTestModules((middleware) => {
