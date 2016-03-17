@@ -22,7 +22,7 @@ export class AddNewTech extends React.Component {
       if (!tech || !categoryType) {
         return
       }
-      const newTechItem = { name: tech, category: categoryType, score: 0 }
+      const newTechItem = { name: tech, categoryId: categoryType, score: 0 }
 
       // reject item if it already exists
       if (techExists(this.props.tech, newTechItem)) {
@@ -54,8 +54,9 @@ export class AddNewTech extends React.Component {
               required
             >
                 <option value="" disabled>choose one...</option>
-                <option>Web</option>
-                <option>Backend</option>
+                <option>web</option>
+                <option>back_end</option>
+                <option>dev_ops</option>
             </select>
             <br />
           <input type="submit" value="Post" />
