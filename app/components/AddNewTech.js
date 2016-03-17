@@ -1,10 +1,14 @@
 import React from 'react'
 
+function techExists(tech, item) {
+  return tech.findIndex(t => t.name === item.name) >= 0
+}
+
 export class AddNewTech extends React.Component {
 
   constructor() {
     super()
-    this.state = { tech: '', category: '' }
+    this.state = { tech: '', category: '', warning: '' }
   }
 
   render() {
@@ -18,11 +22,17 @@ export class AddNewTech extends React.Component {
       if (!tech || !categoryType) {
         return
       }
-      // add new item using supplied action creator
       const newTechItem = { name: tech, category: categoryType, score: 0 }
+
+      // reject item if it already exists
+      if (techExists(this.props.tech, newTechItem)) {
+        this.setState({ warning: `Tech \'${tech}\' already exists!` })
+        return
+      }
+      // add new item using supplied action creator
       this.props.addNewTech(newTechItem)
       // clear form
-      this.setState({ tech: '', category: '' })
+      this.setState({ tech: '', category: '', warning: '' })
     }
 
     return (
@@ -33,12 +43,15 @@ export class AddNewTech extends React.Component {
               placeholder="tech name"
               value={this.state.tech}
               onChange={handleTechChange}
+              required
             />
+            <font color="red"><strong>{this.state.warning}</strong></font>
             <br />
           Category:
             <select id="category"
               value={this.state.category}
               onChange={handleCategoryChange}
+              required
             >
                 <option value="" disabled>choose one...</option>
                 <option>Web</option>
@@ -53,5 +66,6 @@ export class AddNewTech extends React.Component {
 }
 
 AddNewTech.propTypes = {
+  tech: React.PropTypes.array.isRequired,
   addNewTech: React.PropTypes.func.isRequired,
 }
