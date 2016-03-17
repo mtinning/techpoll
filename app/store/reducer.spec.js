@@ -68,4 +68,70 @@ describe('reducer', () => {
     const nextState = reducer(initialState, action)
     expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
   }))
+
+  it('handles ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+
+    const initialStateJs = {
+      tech: [
+        {
+          name: 'tech_1',
+          category: 'cat_1',
+          score: 0,
+        },
+      ],
+    }
+
+    const newTechItemJs = {
+          name: 'tech_2',
+          category: 'cat_2',
+          score: 0,
+    }
+
+    const initialState = fromJS(initialStateJs)
+    // append new tech to initial array
+    const initialStateAndNewTech = {
+      tech: initialStateJs.tech.concat(newTechItemJs)
+    }
+    const stateToTransitionTo = fromJS(initialStateAndNewTech)
+
+    const action = {
+      type: 'ADD_NEW_TECH',
+      item:  newTechItemJs,
+    }
+
+    const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+  }))
+
+  it('handles duplicate ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+
+    const initialStateJs = {
+      tech: [
+        {
+          name: 'tech_1',
+          category: 'cat_1',
+          score: 0,
+        },
+      ],
+    }
+
+    // new technology with same name - attempt to add should have no effect
+    const newTechItemJs = {
+          name: 'tech_1',
+          category: 'cat_2',
+          score: 99,
+    }
+
+    const initialState = fromJS(initialStateJs)
+    const stateToTransitionTo = fromJS(initialStateJs)
+
+    const action = {
+      type: 'ADD_NEW_TECH',
+      item:  newTechItemJs,
+    }
+
+    const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+  }))
+
 })
