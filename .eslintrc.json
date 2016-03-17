@@ -1,0 +1,16 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+      "semi": ["error", "never"],
+      "quote-props": ["error", "consistent"],
+      "new-cap": ["error", {
+        "capIsNewExceptions": ["Map", "List"]
+        }],
+      "no-unused-vars": ["error", {
+        "argsIgnorePattern": "_"
+        }]
+    }
+}

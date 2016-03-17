@@ -1,15 +1,15 @@
 export function setState(state) {
   return {
     type: 'SET_STATE',
-    state
+    state,
   }
 }
 
-export function vote(item, vote) {
+export function submitVote(item, vote) {
   return {
     type: 'VOTE',
     item,
-    vote
+    vote,
   }
 }
 
