@@ -1,4 +1,8 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
+import * as actionCreators from '../store/action-creators'
 
 const submitUpVote = (submitVote, tech) => () => {
   submitVote(tech, { score: 1, comment: '' })
@@ -28,3 +32,12 @@ TechCard.propTypes = {
   }).isRequired,
   submitVote: React.PropTypes.func.isRequired,
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ submitVote: actionCreators.submitVote }, dispatch)
+}
+
+export const TechCardContainer = connect(
+  null,
+  mapDispatchToProps
+)(TechCard)

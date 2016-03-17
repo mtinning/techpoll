@@ -1,21 +1,19 @@
 import React from 'react'
-import { TechCard } from './TechCard'
+import { TechCardContainer } from './TechCard'
 
-export const TechList = ({ techList, submitVote }) => (
+export const TechList = ({ techList }) => (
   <div>
-    {techList.map(t => <TechCard key={t.name} tech={t} submitVote={submitVote} />)}
+    {techList.map(t => <TechCardContainer key={t.name} tech={t} />)}
   </div>
 )
 
 TechList.propTypes = {
   techList: React.PropTypes.array.isRequired,
-  submitVote: React.PropTypes.func.isRequired,
 }
 
-export const SortedTechList = ({ techList, submitVote }) => (
-  <TechList techList={ techList.sort((a, b) => b.score - a.score) } submitVote={ submitVote } />)
+export const SortedTechList = ({ techList }) => (
+  <TechList techList={ techList.sort((a, b) => b.score - a.score) } />)
 
 SortedTechList.propTypes = {
   techList: React.PropTypes.array.isRequired,
-  submitVote: React.PropTypes.func.isRequired,
 }
