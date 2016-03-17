@@ -16,6 +16,6 @@ export function submitVote(item, vote) {
 export function addNewTech(item) {
   return {
     type: 'ADD_NEW_TECH',
-    item
+    item,
   }
 }

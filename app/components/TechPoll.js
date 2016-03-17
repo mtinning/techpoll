@@ -13,7 +13,7 @@ const TechPoll = ({ tech, submitVote, addNewTech }) => {
     <div>
       <h2>{'TechPoll'}</h2>
       {techList}
-      <AddNewTech addNewTech={addNewTech}/>
+      <AddNewTech addNewTech={addNewTech} />
     </div>
   )
 }
