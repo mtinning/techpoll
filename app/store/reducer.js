@@ -25,7 +25,7 @@ export default function (state = Map(), action) {
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state)
-    case 'ADD':
+    case 'ADD_NEW_TECH':
       return addTech(state, action.item)
     case 'VOTE':
       return state.update(

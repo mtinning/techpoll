@@ -1,11 +1,11 @@
 import React from 'react'
 import { TechCard } from './TechCard'
-import {AddTech} from './AddTech'
+import { AddNewTech } from './AddNewTech'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../store/action-creators'
 
-const TechPoll = ({ tech, submitVote }) => {
+const TechPoll = ({ tech, submitVote, addNewTech }) => {
   const techList = tech
     .sort((a, b) => b.score - a.score)
     .map(t => <TechCard key={t.name} tech={t} submitVote={submitVote} />)
@@ -13,7 +13,7 @@ const TechPoll = ({ tech, submitVote }) => {
     <div>
       <h2>{'TechPoll'}</h2>
       {techList}
-      <AddTech addTech={this.props.addTech}/>
+      <AddNewTech addNewTech={addNewTech}/>
     </div>
   )
 }
@@ -21,6 +21,7 @@ const TechPoll = ({ tech, submitVote }) => {
 TechPoll.propTypes = {
   tech: React.PropTypes.array.isRequired,
   submitVote: React.PropTypes.func.isRequired,
+  addNewTech: React.PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
