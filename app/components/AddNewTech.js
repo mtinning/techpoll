@@ -45,7 +45,11 @@ export class AddNewTech extends React.Component {
               onChange={handleTechChange}
               required
             />
-            <font color="red"><strong>{this.state.warning}</strong></font>
+            {
+              !!this.state.warning ?
+              <span className="validation-error">{this.state.warning}</span> :
+              null
+            }
             <br />
           Category:
             <select id="category"

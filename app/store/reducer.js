@@ -13,7 +13,6 @@ function addTech(state, item) {
   const index = state.get('tech').findIndex(t => t.get('name') === item.name)
 
   if (index >= 0) {
-    // console.log('Tech: \''+ item.name + '\' already exists')
     return state
   }
 
