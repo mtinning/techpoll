@@ -1,20 +1,15 @@
 import React from 'react'
-import { TechCard } from './TechCard'
+import { TechList } from './TechList'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../store/action-creators'
 
-const TechPoll = ({ tech, submitVote }) => {
-  const techList = tech
-    .sort((a, b) => b.score - a.score)
-    .map(t => <TechCard key={t.name} tech={t} submitVote={submitVote} />)
-  return (
+const TechPoll = ({ tech, submitVote }) => (
     <div>
       <h2>{'TechPoll'}</h2>
-      {techList}
+      <TechList techList={tech} submitVote={submitVote} />
     </div>
   )
-}
 
 TechPoll.propTypes = {
   tech: React.PropTypes.array.isRequired,
