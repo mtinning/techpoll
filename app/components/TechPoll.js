@@ -1,5 +1,5 @@
 import React from 'react'
-import { TechList } from './TechList'
+import { TechCategoryList } from './TechCategoryList'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../store/action-creators'
@@ -7,7 +7,7 @@ import * as actionCreators from '../store/action-creators'
 const TechPoll = ({ tech, submitVote }) => (
     <div>
       <h2>{'TechPoll'}</h2>
-      <TechList techList={tech} submitVote={submitVote} />
+      <TechCategoryList techList={tech} submitVote={submitVote} />
     </div>
   )
 
