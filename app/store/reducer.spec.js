@@ -58,7 +58,7 @@ describe('reducer', () => {
 
     const action = {
       type: 'VOTE',
-      item: initialStateJs.tech[1],
+      item: initialState.getIn(['tech', '1']),
       vote: {
         score: 1,
         comment: '',

@@ -16,7 +16,7 @@ export default function (state = Map(), action) {
       return state.update(
         'tech',
         v => v.map(t =>
-          t.get('name') === action.item.name ? submitVote(t, action.vote) : t
+          t === action.item ? submitVote(t, action.vote) : t
         )
       )
     default:
