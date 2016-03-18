@@ -16,7 +16,7 @@ function addTech(state, item) {
     return state
   }
 
-  return state.set('tech', state.get('tech').push(item))
+  return state.set('tech', state.get('tech').push(fromJS(item)))
 }
 
 export default function (state = Map(), action) {

@@ -6,7 +6,6 @@ import { List } from 'immutable'
 import { addNewTech } from '../store/action-creators'
 
 function techExists(tech, item) {
-  console.log(tech)
   return tech.findIndex(t => t.get('name') === item.name) >= 0
 }
 
