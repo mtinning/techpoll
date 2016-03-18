@@ -1,15 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { List } from 'immutable'
 
 import { TechCategory } from './TechCategory'
 
 export const TechCategoryList = ({ techList }) => {
   const appendItem = (categories, item) => {
     const update = {}
-    if (item.categoryId in categories) {
-      update[item.categoryId] = [...categories[item.categoryId], item]
+    const categoryId = item.get('categoryId')
+    if (categoryId in categories) {
+      update[categoryId] = categories[categoryId].push(item)
     } else {
-      update[item.categoryId] = [item]
+      update[categoryId] = List.of(item)
     }
 
     return Object.assign({}, categories, update)
@@ -31,12 +33,12 @@ export const TechCategoryList = ({ techList }) => {
 }
 
 TechCategoryList.propTypes = {
-  techList: React.PropTypes.array.isRequired,
+  techList: React.PropTypes.instanceOf(List).isRequired,
 }
 
 function mapStateToProps(state) {
   return {
-    techList: state.get('tech').toJS(),
+    techList: state.get('tech'),
   }
 }
 
