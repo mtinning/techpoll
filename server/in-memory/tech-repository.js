@@ -14,7 +14,13 @@ function createVote(vote) {
 }
 
 const techRepository = {
-  get: () => allTech.map(createSummary)
+  get: () => allTech.map(createSummary),
+  add: (item) => allTech.push({
+    name: item.name,
+    id: item.id,
+    categoryId: item.categoryId,
+    votes: []
+  }),
 }
 
 const votesRepository = {

@@ -17,11 +17,13 @@ describe('API Action Middleware', () => {
   const repo = {
     getTech: sinon.spy(),
     addVote: sinon.spy(),
+    addNewTech: sinon.spy(),
   }
 
   afterEach(() => {
     repo.addVote.reset()
     repo.getTech.reset()
+    repo.addNewTech.reset()
   })
 
   describe('VOTE actions', () => {
@@ -64,6 +66,34 @@ describe('API Action Middleware', () => {
       middleware(repo)(null)(() => {})(action)
 
       expect(repo.addVote).to.not.have.been.called
+    }))
+
+    it('should not call addNewTech', () => loadTestModules((middleware) => {
+      middleware(repo)(null)(() => {})(action)
+
+      expect(repo.addNewTech).to.not.have.been.called
+    }))
+  })
+  describe('ADD_NEW_TECH actions', () => {
+    const action = {
+      type: 'ADD_NEW_TECH',
+      item: {
+        name: 'test_tech',
+        id: 'test_tech_id',
+        categoryId: 'test_cat_id',
+      },
+    }
+
+    it('should call addNewTech once', () => loadTestModules((middleware) => {
+      middleware(repo)(null)(() => {})(action)
+
+      expect(repo.addNewTech).to.have.been.calledOnce
+    }))
+
+    it('should call addNewTech with the correct arguments', () => loadTestModules((middleware) => {
+      middleware(repo)(null)(() => {})(action)
+
+      expect(repo.addNewTech).to.have.been.calledWith(action.item)
     }))
   })
 })
