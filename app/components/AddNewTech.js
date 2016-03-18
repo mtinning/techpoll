@@ -1,7 +1,12 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { List } from 'immutable'
+
+import { addNewTech } from '../store/action-creators'
 
 function techExists(tech, item) {
-  return tech.findIndex(t => t.name === item.name) >= 0
+  return tech.findIndex(t => t.get('name') === item.name) >= 0
 }
 
 export class AddNewTech extends React.Component {
@@ -71,6 +76,21 @@ export class AddNewTech extends React.Component {
 }
 
 AddNewTech.propTypes = {
-  tech: React.PropTypes.array.isRequired,
+  tech: React.PropTypes.instanceOf(List).isRequired,
   addNewTech: React.PropTypes.func.isRequired,
 }
+
+function mapStateToProps(state) {
+  return {
+    tech: state.get('tech'),
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addNewTech }, dispatch)
+}
+
+export const AddNewTechContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddNewTech)

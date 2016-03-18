@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import { TechCategory } from './TechCategory'
 
-export const TechCategoryList = ({ techList, submitVote }) => {
+export const TechCategoryList = ({ techList }) => {
   const appendItem = (categories, item) => {
     const update = {}
     if (item.categoryId in categories) {
@@ -22,7 +24,6 @@ export const TechCategoryList = ({ techList, submitVote }) => {
           key={`category-${c}`}
           categoryName={c}
           techList={categories[c]}
-          submitVote={submitVote}
         />
         )}
     </div>
@@ -31,5 +32,14 @@ export const TechCategoryList = ({ techList, submitVote }) => {
 
 TechCategoryList.propTypes = {
   techList: React.PropTypes.array.isRequired,
-  submitVote: React.PropTypes.func.isRequired,
 }
+
+function mapStateToProps(state) {
+  return {
+    techList: state.get('tech').toJS(),
+  }
+}
+
+export const TechCategoryListContainer = connect(
+  mapStateToProps
+)(TechCategoryList)
