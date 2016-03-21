@@ -24,7 +24,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     jspm: {
         // Edit this to your needs
-        loadFiles: ['app/components/TechCard.spec.js'],
+        loadFiles: ['app/!(jspm_packages)/*.spec.js'],
         serveFiles: ['app/**/*.js'],
         config: 'app/config.js',
         packages: 'app/jspm_packages/'
