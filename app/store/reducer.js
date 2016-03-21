@@ -19,13 +19,12 @@ function addTech(state, item) {
   return state.set('tech', state.get('tech').push(fromJS(item)))
 }
 
-function viewVotes(state, item) {
-  // TODO: temporary hard-coding - must be retrieved in future
-  const hardCodedState = [
-    { score: 1, comment: `${item.get('name')} - Test Comment 1` },
-    { score: -1, comment: `${item.get('name')} - Test Comment 2` },
-  ]
-  return state.set('activeVotes', fromJS(hardCodedState))
+function viewVotes(state, item, votes) {
+  if (votes) {
+    return state.delete('loadingVotes').set('activeVotes', Map().set('tech', item).set('votes', fromJS(votes)))
+  }
+
+  return state.delete('activeVotes').set('loadingVotes', true)
 }
 
 function openAddVote(state, tech) {
@@ -47,14 +46,18 @@ export default function (state = Map(), action) {
     case 'CLOSE_ADD_VOTE':
       return closeAddVote(state)
     case 'VOTE':
-      return state.delete('currentVote').update(
+      let nextState = state.delete('currentVote').update(
         'tech',
         v => v.map(t =>
           t === action.item ? submitVote(t, action.vote) : t
         )
       )
+      if (nextState.has('activeVotes') && nextState.getIn(['activeVotes','tech']) === action.item) {
+        nextState = nextState.updateIn(['activeVotes','votes'], v => v.push(fromJS(action.vote)))
+      }
+      return nextState
     case 'VIEW_VOTES':
-      return viewVotes(state, action.item)
+      return viewVotes(state, action.item, action.votes)
     case 'CLOSE_VOTES':
       return state.delete('activeVotes')
     default:

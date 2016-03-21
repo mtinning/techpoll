@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
 import { App } from './components/App'
 import { TechPollContainer } from './components/TechPoll'
@@ -21,6 +22,7 @@ const routes = (
 
 const finalCreateStore = compose(
   applyMiddleware(apiActionMiddleware(techRepository)),
+  applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
@@ -28,12 +30,34 @@ const store = finalCreateStore(reducer)
 
 const rootNode = document.getElementById('app')
 
+class RepoProvider extends React.Component {
+  getChildContext() {
+    return { store: this.store, repository: this.repository }
+  }
+
+  constructor(props, context) {
+    super(props, context)
+    this.repository = props.repository
+    this.store = props.store
+  }
+
+  render() {
+    const { children } = this.props
+    return React.Children.only(children)
+  }
+}
+
+RepoProvider.childContextTypes = {
+  repository: React.PropTypes.object.isRequired,
+  store: React.PropTypes.object.isRequired,
+}
+
 techRepository.getTech(tech => {
   store.dispatch(setState({ tech }))
   ReactDOM.render(
-    <Provider store={store}>
+    <RepoProvider repository={techRepository} store={store}>
       <Router history={hashHistory}>{routes}</Router>
-    </Provider>,
+    </RepoProvider>,
     rootNode
   )
 })

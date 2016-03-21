@@ -34,7 +34,7 @@ ActiveVoteList.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    activeVotes: state.get('activeVotes'),
+    activeVotes: state.getIn(['activeVotes','votes']),
   }
 }
 

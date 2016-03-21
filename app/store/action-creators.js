@@ -20,10 +20,14 @@ export function addNewTech(item) {
   }
 }
 
-export function viewVotes(item) {
-  return {
+export const viewVotes = (techRepository) => (item) => {
+  const action = {
     type: 'VIEW_VOTES',
     item,
+  }
+  return function(dispatch) {
+      dispatch(action)
+      techRepository.getVotes(item.get('id'), votes => dispatch({...action, votes}))
   }
 }
 

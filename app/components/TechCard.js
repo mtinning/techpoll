@@ -61,7 +61,26 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
+function mapActionsToRepoActions(props, repo) {
+  return {
+    viewVotes: props.viewVotes(repo)
+  }
+}
+
+const connectToRepository = (mapActionsToRepoActions) => (component) => (props, context) => {
+  console.log('context', context)
+  console.log('repo:', context.repository)
+  console.log('props', props)
+  return component({...props, ...mapActionsToRepoActions(props, context.repository)})
+}
+
+const TechCardRepoContainer = connectToRepository(
+  mapActionsToRepoActions
+)(TechCard)
+
+console.log(TechCardRepoContainer)
+
 export const TechCardContainer = connect(
   null,
   mapDispatchToProps
-)(TechCard)
+)(TechCardRepoContainer)

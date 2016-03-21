@@ -39,7 +39,7 @@ const votesRepository = {
   get: (techId) => {
     const tech = allTech.filter(t => t.id == techId)[0]
     if (tech) {
-      tech.get('votes')
+      return tech.votes
     }
   },
 }
