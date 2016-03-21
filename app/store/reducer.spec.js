@@ -1,18 +1,12 @@
 /* global describe, it*/
 
 import { expect } from 'chai'
+import { Map, fromJS } from 'immutable'
 
-import loadModules from '../test-utils/systemjs-loader'
-
-function loadTestModules(onSuccess) {
-  return loadModules({
-    'store/reducer': [m => m.default],
-    'immutable': [m => m.Map, m => m.fromJS],
-  }, onSuccess)
-}
+import reducer from './reducer'
 
 describe('reducer', () => {
-  it('handles SET_STATE', () => loadTestModules((reducer, Map, fromJS) => {
+  it('handles SET_STATE', () => {
     const initialState = Map()
     const stateToTransitionTo = { tech: [
       {
@@ -35,8 +29,9 @@ describe('reducer', () => {
     const nextState = reducer(initialState, action)
     const expectedState = fromJS(stateToTransitionTo)
     expect(nextState).to.deep.equal(expectedState)
-  }))
-  it('handles VOTE', () => loadTestModules((reducer, Map, fromJS) => {
+  })
+
+  it('handles VOTE', () => {
     const initialStateJs = {
       tech: [
         {
@@ -67,9 +62,9 @@ describe('reducer', () => {
 
     const nextState = reducer(initialState, action)
     expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+  })
 
-  it('handles ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+  it('handles ADD_NEW_TECH', () => {
     const initialStateJs = {
       tech: [
         {
@@ -100,9 +95,9 @@ describe('reducer', () => {
 
     const nextState = reducer(initialState, action)
     expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+  })
 
-  it('handles duplicate ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+  it('handles duplicate ADD_NEW_TECH', () => {
     const initialStateJs = {
       tech: [
         {
@@ -130,5 +125,5 @@ describe('reducer', () => {
 
     const nextState = reducer(initialState, action)
     expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+  })
 })
