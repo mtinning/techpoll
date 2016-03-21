@@ -1,4 +1,6 @@
 import React from 'react'
+import { List } from 'immutable'
+
 import { TechList } from './TechList'
 
 export const TechCategory = ({ categoryName, techList }) => (
@@ -10,5 +12,5 @@ export const TechCategory = ({ categoryName, techList }) => (
 
 TechCategory.propTypes = {
   categoryName: React.PropTypes.string.isRequired,
-  techList: React.PropTypes.array.isRequired,
+  techList: React.PropTypes.instanceOf(List).isRequired,
 }

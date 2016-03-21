@@ -1,7 +1,7 @@
 export default repo => _ => next => action => {
   switch (action.type) {
     case 'VOTE':
-      repo.addVote(action.item, action.vote)
+      repo.addVote(action.item.get('id'), action.vote)
       break
     case 'ADD_NEW_TECH':
       repo.addNewTech(action.item)

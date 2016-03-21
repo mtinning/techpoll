@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Map } from 'immutable'
 
 import * as actionCreators from '../store/action-creators'
 
@@ -14,8 +15,8 @@ const submitDownVote = (submitVote, tech) => () => {
 
 export const TechCard = ({ tech, submitVote }) => (
   <div>
-    <div>{tech.name}</div>
-    <div>Score: {tech.score}</div>
+    <div>{tech.get('name')}</div>
+    <div>Score: {tech.get('score')}</div>
     <button onClick={submitUpVote(submitVote, tech)}>
       Vote Up!
     </button>
@@ -26,10 +27,7 @@ export const TechCard = ({ tech, submitVote }) => (
 )
 
 TechCard.propTypes = {
-  tech: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    score: React.PropTypes.number.isRequired,
-  }).isRequired,
+  tech: React.PropTypes.instanceOf(Map).isRequired,
   submitVote: React.PropTypes.func.isRequired,
 }
 

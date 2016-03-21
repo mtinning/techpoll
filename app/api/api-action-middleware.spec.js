@@ -10,7 +10,10 @@ chai.use(sinonChai)
 import loadModules from '../test-utils/systemjs-loader'
 
 function loadTestModules(onSuccess) {
-  return loadModules({ 'api/api-action-middleware': [m => m.default] }, onSuccess)
+  return loadModules({
+    'api/api-action-middleware': [m => m.default],
+    'immutable': [m => m.fromJS],
+  }, onSuccess)
 }
 
 describe('API Action Middleware', () => {
@@ -27,31 +30,38 @@ describe('API Action Middleware', () => {
   })
 
   describe('VOTE actions', () => {
-    const action = {
-      type: 'VOTE',
-      item: {
-        id: 'test_id',
-      },
-      vote: {
-        score: 1,
-        message: 'test_message',
-      },
+    const createAction = (fromJS) => {
+      const action = {
+        type: 'VOTE',
+        item: fromJS({
+          id: 'test_id',
+        }),
+        vote: {
+          score: 1,
+          message: 'test_message',
+        },
+      }
+      return action
     }
 
-    it('should call addVote once', () => loadTestModules((middleware) => {
-      middleware(repo)(null)(() => {})(action)
+    it('should call addVote once', () => loadTestModules((middleware, fromJS) => {
+      middleware(repo)(null)(() => {})(createAction(fromJS))
 
       expect(repo.addVote).to.have.been.calledOnce
     }))
 
-    it('should call addVote with the correct arguments', () => loadTestModules((middleware) => {
-      middleware(repo)(null)(() => {})(action)
+    it('should call addVote with the correct arguments', () =>
+      loadTestModules((middleware, fromJS) => {
+        const action = createAction(fromJS)
 
-      expect(repo.addVote).to.have.been.calledWith(action.item, action.vote)
-    }))
+        middleware(repo)(null)(() => {})(action)
 
-    it('should not call getTech', () => loadTestModules((middleware) => {
-      middleware(repo)(null)(() => {})(action)
+        expect(repo.addVote).to.have.been.calledWith(action.item.get('id'), action.vote)
+      })
+    )
+
+    it('should not call getTech', () => loadTestModules((middleware, fromJS) => {
+      middleware(repo)(null)(() => {})(createAction(fromJS))
 
       expect(repo.getTech).to.not.have.been.called
     }))
