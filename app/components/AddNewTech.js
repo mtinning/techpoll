@@ -27,7 +27,13 @@ export class AddNewTech extends React.Component {
       if (!tech || !categoryType) {
         return
       }
-      const newTechItem = { name: tech, categoryId: categoryType, score: 0 }
+
+      const newTechItem = {
+        name: tech,
+        id: `${tech.toLowerCase()}_${categoryType}`,
+        categoryId: categoryType,
+        score: 0,
+      }
 
       // reject item if it already exists
       if (techExists(this.props.tech, newTechItem)) {
