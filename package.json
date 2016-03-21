@@ -4,7 +4,7 @@
   "description": "Interactive tech voting site",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run serve\" \"npm run watch\" \"npm run lint_watch\" \"npm run watch-css\"",
+    "start": "concurrently --kill-others \"npm run serve\" \"npm run watch\" \"npm run lint_watch\" \"npm run watch-css\" \"npm run test-watch\"",
     "serve": "node server/server.js app",
     "watch": "chokidar-socket-emitter",
     "test": "karma start --single-run && npm run lint",

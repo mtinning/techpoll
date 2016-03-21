@@ -1,4 +1,4 @@
-/* global describe, it, beforeEach */
+/* global describe, it, beforeEach, afterEach */
 /* eslint no-unused-expressions: 0*/
 
 import React from 'react'
@@ -13,18 +13,14 @@ chai.use(sinonChai)
 import { TechCard } from './TechCard.js'
 
 describe('TechCard', () => {
-  let tech
-  let submitVote
-  let techCard
-  beforeEach(() => {
-    tech = Map({
-      name: 'Alan',
-      score: 3,
-    })
-    submitVote = sinon.spy()
-
-    techCard = TestUtils.render(<TechCard tech={tech} submitVote={submitVote} />)
+  const tech = Map({
+    name: 'Alan',
+    score: 3,
   })
+  const submitVote = sinon.spy()
+  const techCard = TestUtils.render(<TechCard tech={tech} submitVote={submitVote} />)
+
+  afterEach(() => submitVote.reset())
 
   it('displays the name of the tech', () => {
     const nameNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'tech-name')
@@ -37,8 +33,9 @@ describe('TechCard', () => {
   })
 
   describe('on upvote button click', () => {
+    const upVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'upvote-button')
+
     beforeEach(() => {
-      const upVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'upvote-button')
       TestUtils.Simulate.click(upVoteNode)
     })
 
@@ -53,8 +50,9 @@ describe('TechCard', () => {
   })
 
   describe('on downvote button click', () => {
+    const downVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'downvote-button')
+
     beforeEach(() => {
-      const downVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'downvote-button')
       TestUtils.Simulate.click(downVoteNode)
     })
 
