@@ -19,3 +19,16 @@ export function addNewTech(item) {
     item,
   }
 }
+
+export function viewVotes(item) {
+  return {
+    type: 'VIEW_VOTES',
+    item,
+  }
+}
+
+export function closeVotes() {
+  return {
+    type: 'CLOSE_VOTES',
+  }
+}

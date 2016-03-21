@@ -10,4 +10,5 @@ export default {
         }
       })
   },
+  getVotes: (itemId, onSuccess) => $.get(`/api/tech/${itemId}/votes`, onSuccess),
 }

@@ -19,6 +19,15 @@ function addTech(state, item) {
   return state.set('tech', state.get('tech').push(fromJS(item)))
 }
 
+function viewVotes(state, item) {
+  // TODO: temporary hard-coding - must be retrieved in future
+  const hardCodedState = [
+    { score: 1, comment: `${item.get('name')} - Test Comment 1` },
+    { score: -1, comment: `${item.get('name')} - Test Comment 2` },
+  ]
+  return state.set('activeVotes', fromJS(hardCodedState))
+}
+
 export default function (state = Map(), action) {
   switch (action.type) {
     case 'SET_STATE':
@@ -32,6 +41,10 @@ export default function (state = Map(), action) {
           t === action.item ? submitVote(t, action.vote) : t
         )
       )
+    case 'VIEW_VOTES':
+      return viewVotes(state, action.item)
+    case 'CLOSE_VOTES':
+      return state.delete('activeVotes')
     default:
       return state
   }

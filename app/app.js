@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
 import { App } from './components/App'
-import { TechPoll } from './components/TechPoll'
+import { TechPollContainer } from './components/TechPoll'
 import reducer from './store/reducer'
 import { setState } from './store/action-creators'
 import apiActionMiddleware from './api/api-action-middleware'
@@ -15,7 +15,7 @@ import techRepository from './api/tech-repository'
 
 const routes = (
 <Route component={App}>
-  <Route path="/" component={TechPoll} />
+  <Route path="/" component={TechPollContainer} />
 </Route>
 )
 
