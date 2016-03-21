@@ -19,14 +19,26 @@ function addTech(state, item) {
   return state.set('tech', state.get('tech').push(fromJS(item)))
 }
 
+function openAddVote(state, tech) {
+  return state.set('currentVote', Map().set('tech', tech))
+}
+
+function closeAddVote(state) {
+  return state.delete('currentVote')
+}
+
 export default function (state = Map(), action) {
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state)
     case 'ADD_NEW_TECH':
       return addTech(state, action.item)
+    case 'OPEN_ADD_VOTE':
+      return openAddVote(state, action.item)
+    case 'CLOSE_ADD_VOTE':
+      return closeAddVote(state)
     case 'VOTE':
-      return state.update(
+      return state.delete('currentVote').update(
         'tech',
         v => v.map(t =>
           t === action.item ? submitVote(t, action.vote) : t

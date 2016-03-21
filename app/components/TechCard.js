@@ -13,7 +13,11 @@ const submitDownVote = (submitVote, tech) => () => {
   submitVote(tech, { score: -1, comment: '' })
 }
 
-export const TechCard = ({ tech, submitVote }) => (
+const handleAddVoteClicked = (openAddVote, tech) => () => {
+  openAddVote(tech)
+}
+
+export const TechCard = ({ tech, submitVote, openAddVote }) => (
   <div>
     <div className="tech-name">{tech.get('name')}</div>
     <div className="tech-score">Score: {tech.get('score')}</div>
@@ -29,16 +33,23 @@ export const TechCard = ({ tech, submitVote }) => (
     >
       Vote Down!
     </button>
+    <button onClick={handleAddVoteClicked(openAddVote, tech)}>
+      Add Comment
+    </button>
   </div>
 )
 
 TechCard.propTypes = {
   tech: React.PropTypes.instanceOf(Map).isRequired,
   submitVote: React.PropTypes.func.isRequired,
+  openAddVote: React.PropTypes.func.isRequired,
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ submitVote: actionCreators.submitVote }, dispatch)
+  return bindActionCreators({
+    submitVote: actionCreators.submitVote,
+    openAddVote: actionCreators.openAddVote,
+  }, dispatch)
 }
 
 export const TechCardContainer = connect(

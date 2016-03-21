@@ -19,3 +19,17 @@ export function addNewTech(item) {
     item,
   }
 }
+
+export function openAddVote(item) {
+  return {
+    type: 'OPEN_ADD_VOTE',
+    item,
+  }
+}
+
+export function closeAddVote(item) {
+  return {
+    type: 'CLOSE_ADD_VOTE',
+    item,
+  }
+}
