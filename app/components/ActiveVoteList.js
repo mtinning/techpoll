@@ -12,26 +12,20 @@ const submitCloseVotes = (closeVotes) => () => {
 }
 
 
-export const ActiveVoteList = ({ activeVotes, closeVotes }) => {
-  if (activeVotes) {
+export const ActiveVoteList = ({ activeVotes, closeVotes }) => (
     // currently using index for key value.
     // may want unique vote key in future if ordering is important
-    return (
+    <div>
       <div>
-        <div>
-          {activeVotes.map((v, i) => <ActiveVote key={`active-vote-${i}`} activeVote={v} />)}
-        </div>
-        <div>
-          <button onClick={submitCloseVotes(closeVotes)}>
-            Close
-          </button>
-        </div>
+        {activeVotes.map((v, i) => <ActiveVote key={`active-vote-${i}`} activeVote={v} />)}
       </div>
-    )
-  }
-
-  return null
-}
+      <div>
+        <button onClick={submitCloseVotes(closeVotes)}>
+          Close
+        </button>
+      </div>
+    </div>
+  )
 
 ActiveVoteList.propTypes = {
   activeVotes: React.PropTypes.instanceOf(List).isRequired,

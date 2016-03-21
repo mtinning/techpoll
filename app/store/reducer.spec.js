@@ -1,18 +1,12 @@
 /* global describe, it*/
 
 import { expect } from 'chai'
+import { Map, fromJS } from 'immutable'
 
-import loadModules from '../test-utils/systemjs-loader'
-
-function loadTestModules(onSuccess) {
-  return loadModules({
-    'store/reducer': [m => m.default],
-    'immutable': [m => m.Map, m => m.fromJS],
-  }, onSuccess)
-}
+import reducer from './reducer'
 
 describe('reducer', () => {
-  it('handles SET_STATE', () => loadTestModules((reducer, Map, fromJS) => {
+  describe('when SET_STATE action is dispatched', () => {
     const initialState = Map()
     const stateToTransitionTo = { tech: [
       {
@@ -32,11 +26,14 @@ describe('reducer', () => {
       state: stateToTransitionTo,
     }
 
-    const nextState = reducer(initialState, action)
-    const expectedState = fromJS(stateToTransitionTo)
-    expect(nextState).to.deep.equal(expectedState)
-  }))
-  it('handles VOTE', () => loadTestModules((reducer, Map, fromJS) => {
+    it('sets the state', () => {
+      const nextState = reducer(initialState, action)
+      const expectedState = fromJS(stateToTransitionTo)
+      expect(nextState).to.deep.equal(expectedState)
+    })
+  })
+
+  describe('when VOTE action is dispatched', () => {
     const initialStateJs = {
       tech: [
         {
@@ -65,11 +62,47 @@ describe('reducer', () => {
       },
     }
 
-    const nextState = reducer(initialState, action)
-    expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+    it('increments the correct items vote count', () => {
+      const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+    })
+  })
 
-  it('handles ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+  describe('when VOTE action is dispatched and add comment is open', () => {
+    const initialStateJs = {
+      tech: [
+        {
+          name: 'tech_1',
+          category: 'cat_1',
+          score: 0,
+        },
+      ],
+    }
+
+    const initialState = fromJS(initialStateJs)
+
+    const tech = initialState.getIn(['tech', '0'])
+    const stateWithAddVoteOpen = initialState.set('currentVote', Map().set('tech', tech))
+    const stateToTransitionTo = stateWithAddVoteOpen
+      .delete('currentVote')
+      .setIn(['tech', '0', 'score'], 1)
+
+    const action = {
+      type: 'VOTE',
+      item: tech,
+      vote: {
+        score: 1,
+        comment: '',
+      },
+    }
+
+    it('removes currentVote', () => {
+      const nextState = reducer(stateWithAddVoteOpen, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+    })
+  })
+
+  describe('when ADD_NEW_TECH action is dispatched', () => {
     const initialStateJs = {
       tech: [
         {
@@ -93,42 +126,81 @@ describe('reducer', () => {
     }
     const stateToTransitionTo = fromJS(initialStateAndNewTech)
 
-    const action = {
-      type: 'ADD_NEW_TECH',
-      item: newTechItemJs,
-    }
+    it('adds a new tech item', () => {
+      const action = {
+        type: 'ADD_NEW_TECH',
+        item: newTechItemJs,
+      }
 
-    const nextState = reducer(initialState, action)
-    expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+      const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+    })
 
-  it('handles duplicate ADD_NEW_TECH', () => loadTestModules((reducer, Map, fromJS) => {
+    it('does not add a new item if the item is a duplicate', () => {
+      const action = {
+        type: 'ADD_NEW_TECH',
+        item: initialStateJs.tech[0],
+      }
+
+      const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(initialState.toJS())
+    })
+  })
+
+  describe('when OPEN_ADD_VOTE action is dispatched', () => {
     const initialStateJs = {
       tech: [
         {
           name: 'tech_1',
-          category: 'cat_1',
+          categoryId: 'cat_1',
           score: 0,
         },
       ],
     }
 
-    // new technology with same name - attempt to add should have no effect
-    const newTechItemJs = {
-      name: 'tech_1',
-      category: 'cat_2',
-      score: 99,
+    const initialState = fromJS(initialStateJs)
+
+    const tech = initialState.getIn(['tech', '0'])
+
+    const stateToTransitionTo = initialState.set('currentVote', Map().set('tech', tech))
+
+    const action = {
+      type: 'OPEN_ADD_VOTE',
+      item: tech,
+    }
+
+    it('sets the currentVote', () => {
+      const nextState = reducer(initialState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+    })
+  })
+
+  describe('when CLOSE_ADD_VOTE action is dispatched', () => {
+    const initialStateJs = {
+      tech: [
+        {
+          name: 'tech_1',
+          categoryId: 'cat_1',
+          score: 0,
+        },
+      ],
     }
 
     const initialState = fromJS(initialStateJs)
-    const stateToTransitionTo = fromJS(initialStateJs)
+
+    const tech = initialState.getIn(['tech', '0'])
+
+    const addVoteOpenState = initialState.set('currentVote', Map().set('tech', tech))
+
+    const stateToTransitionTo = addVoteOpenState.delete('currentVote')
 
     const action = {
-      type: 'ADD_NEW_TECH',
-      item: newTechItemJs,
+      type: 'CLOSE_ADD_VOTE',
     }
 
-    const nextState = reducer(initialState, action)
-    expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
-  }))
+    it('removes the currentVote', () => {
+      const nextState = reducer(addVoteOpenState, action)
+      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+    })
+  })
 })

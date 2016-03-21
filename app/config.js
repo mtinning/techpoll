@@ -16,15 +16,19 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.35",
     "babel-runtime": "npm:babel-runtime@5.8.35",
+    "chai": "npm:chai@3.5.0",
     "core-js": "npm:core-js@1.2.6",
     "immutable": "npm:immutable@3.7.6",
     "jquery": "npm:jquery@2.2.1",
     "react": "npm:react@0.14.7",
+    "react-addons-test-utils": "npm:react-addons-test-utils@0.14.7",
     "react-dom": "npm:react-dom@0.14.7",
     "react-redux": "npm:react-redux@4.4.0",
     "react-router": "npm:react-router@2.0.1",
     "redux": "npm:redux@3.3.1",
     "scss": "github:mobilexag/plugin-sass@0.3.0",
+    "sinon": "npm:sinon@1.17.3",
+    "sinon-chai": "npm:sinon-chai@2.8.0",
     "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@0.5.6",
     "github:capaj/systemjs-hot-reloader@0.5.6": {
       "debug": "npm:debug@2.2.0",
@@ -192,6 +196,14 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:chai@3.5.0": {
+      "assertion-error": "npm:assertion-error@1.0.1",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "deep-eql": "npm:deep-eql@0.1.3",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0",
+      "type-detect": "npm:type-detect@1.0.0"
+    },
     "npm:cipher-base@1.0.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "inherits": "npm:inherits@2.0.1",
@@ -252,6 +264,10 @@ System.config({
       "tty": "github:jspm/nodelibs-tty@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
+    "npm:deep-eql@0.1.3": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "type-detect": "npm:type-detect@0.1.1"
+    },
     "npm:des.js@1.0.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "inherits": "npm:inherits@2.0.1",
@@ -279,6 +295,10 @@ System.config({
     },
     "npm:fbjs@0.6.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:formatio@1.1.1": {
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "samsam": "npm:samsam@1.1.2"
     },
     "npm:has-flag@1.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -372,6 +392,9 @@ System.config({
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:react-addons-test-utils@0.14.7": {
+      "react": "npm:react@0.14.7"
+    },
     "npm:react-dom@0.14.7": {
       "react": "npm:react@0.14.7"
     },
@@ -426,6 +449,19 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherits": "npm:inherits@2.0.1",
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:sinon-chai@2.8.0": {
+      "chai": "npm:chai@3.5.0",
+      "sinon": "npm:sinon@1.17.3"
+    },
+    "npm:sinon@1.17.3": {
+      "crypto": "github:jspm/nodelibs-crypto@0.1.0",
+      "formatio": "npm:formatio@1.1.1",
+      "lolex": "npm:lolex@1.3.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "samsam": "npm:samsam@1.1.2",
+      "util": "npm:util@0.10.3"
     },
     "npm:source-map@0.5.3": {
       "process": "github:jspm/nodelibs-process@0.1.2"

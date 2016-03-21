@@ -17,32 +17,47 @@ const submitViewVotes = (viewVotes, tech) => () => {
   viewVotes(tech)
 }
 
-export const TechCard = ({ tech, submitVote, viewVotes }) => (
-  <div>
-    <div>{tech.get('name')}</div>
-    <div>Score: {tech.get('score')}</div>
-    <button onClick={submitUpVote(submitVote, tech)}>
-      Vote Up!
-    </button>
-    <button onClick={submitDownVote(submitVote, tech)}>
-      Vote Down!
-    </button>
-    <button onClick={submitViewVotes(viewVotes, tech)}>
-      View Votes
-    </button>
-  </div>
-)
+const handleAddVoteClicked = (openAddVote, tech) => () => {
+  openAddVote(tech)
+}
+
+export const TechCard = ({ tech, submitVote, openAddVote, viewVotes }) => (
+    <div>
+      <div className="tech-name">{tech.get('name')}</div>
+      <div className="tech-score">Score: {tech.get('score')}</div>
+      <button
+        className="button vote-button upvote-button"
+        onClick={submitUpVote(submitVote, tech)}
+      >
+        Vote Up!
+      </button>
+      <button
+        className="button vote-button downvote-button"
+        onClick={submitDownVote(submitVote, tech)}
+      >
+        Vote Down!
+      </button>
+      <button onClick={submitViewVotes(viewVotes, tech)}>
+        View Votes
+      </button>
+      <button onClick={handleAddVoteClicked(openAddVote, tech)}>
+        Add Comment
+      </button>
+    </div>
+  )
 
 TechCard.propTypes = {
   tech: React.PropTypes.instanceOf(Map).isRequired,
   submitVote: React.PropTypes.func.isRequired,
   viewVotes: React.PropTypes.func.isRequired,
+  openAddVote: React.PropTypes.func.isRequired,
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     submitVote: actionCreators.submitVote,
     viewVotes: actionCreators.viewVotes,
+    openAddVote: actionCreators.openAddVote,
   }, dispatch)
 }
 
