@@ -19,12 +19,18 @@ const handleAddVoteClicked = (openAddVote, tech) => () => {
 
 export const TechCard = ({ tech, submitVote, openAddVote }) => (
   <div>
-    <div>{tech.get('name')}</div>
-    <div>Score: {tech.get('score')}</div>
-    <button onClick={submitUpVote(submitVote, tech)}>
+    <div className="tech-name">{tech.get('name')}</div>
+    <div className="tech-score">Score: {tech.get('score')}</div>
+    <button
+      className="button vote-button upvote-button"
+      onClick={submitUpVote(submitVote, tech)}
+    >
       Vote Up!
     </button>
-    <button onClick={submitDownVote(submitVote, tech)}>
+    <button
+      className="button vote-button downvote-button"
+      onClick={submitDownVote(submitVote, tech)}
+    >
       Vote Down!
     </button>
     <button onClick={handleAddVoteClicked(openAddVote, tech)}>

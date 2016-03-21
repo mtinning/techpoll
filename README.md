@@ -35,7 +35,12 @@ npm test
 ### Front End Tests
 
 - [Mocha](https://mochajs.org/) - testing framework
-- // TODO [Karma](https://karma-runner.github.io/0.13/index.html) - test runner
+- [Karma](https://karma-runner.github.io/0.13/index.html) - test runner
+- [Karma-jspm](https://github.com/Workiva/karma-jspm) - jspm module loader plugin for karma
+- [Karma-chai](https://github.com/xdissent/karma-chai) - chai for karma plugin
+- [Karma-mocha](https://github.com/karma-runner/karma-mocha) - adapter for mocha
+- [Karma-mocha-reporter](https://github.com/litixsoft/karma-mocha-reporter) - karma reporter plugin with mocha style logging
+- [Karma-chrome-launcher](https://github.com/karma-runner/karma-chrome-launcher) - launcher plugin for chrome
 - [Chai](http://chaijs.com/) - expressive assertions for Mocha
 - [Sinon](http://sinonjs.org/) - test spies
 - // TODO [chai-immutable](http://chaijs.com/plugins/chai-immutable/) - extends chai with assertions for Facebook's immutable library

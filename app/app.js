@@ -3,7 +3,7 @@ import 'systemjs-hot-reloader/default-listener'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 
 import { App } from './components/App'
@@ -19,11 +19,12 @@ const routes = (
 </Route>
 )
 
-const createStoreWithMiddleware = applyMiddleware(
-  apiActionMiddleware(techRepository)
+const finalCreateStore = compose(
+  applyMiddleware(apiActionMiddleware(techRepository)),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
-const store = createStoreWithMiddleware(reducer)
+const store = finalCreateStore(reducer)
 
 const rootNode = document.getElementById('app')
 
