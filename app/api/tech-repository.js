@@ -1,5 +1,6 @@
 import $ from 'jquery'
 
+// Returns a function that calls the provided function if it is defined
 const callIfDefined = (fn) => (data) => {
   if (fn) {
     fn(data)
