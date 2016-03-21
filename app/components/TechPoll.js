@@ -14,9 +14,13 @@ export const TechPoll = ({ addVoteOpen }) => (
   </div>
 )
 
+TechPoll.propTypes = {
+  addVoteOpen: React.PropTypes.bool.isRequired,
+}
+
 function mapStateToProps(state) {
   return {
-    addVoteOpen: state.has('currentVote')
+    addVoteOpen: state.has('currentVote'),
   }
 }
 

@@ -20,9 +20,7 @@ function addTech(state, item) {
 }
 
 function openAddVote(state, tech) {
-  const next = state.set('currentVote', Map().set('tech', tech))
-  console.log(next.getIn(['currentVote', 'tech', 'id']))
-  return next
+  return state.set('currentVote', Map().set('tech', tech))
 }
 
 function closeAddVote(state) {
