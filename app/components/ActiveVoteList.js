@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 
 import { ActiveVote } from './ActiveVote'
 
@@ -31,7 +31,7 @@ export const ActiveVoteList = ({ activeVotes, closeVotes, tech }) => (
 ActiveVoteList.propTypes = {
   activeVotes: React.PropTypes.instanceOf(List).isRequired,
   closeVotes: React.PropTypes.func.isRequired,
-  tech: React.PropTypes.instanceOf(List).isRequired,
+  tech: React.PropTypes.instanceOf(Map).isRequired,
 }
 
 function mapStateToProps(state) {
