@@ -31,6 +31,7 @@ export const ActiveVoteList = ({ activeVotes, closeVotes, tech }) => (
 ActiveVoteList.propTypes = {
   activeVotes: React.PropTypes.instanceOf(List).isRequired,
   closeVotes: React.PropTypes.func.isRequired,
+  tech: React.PropTypes.instanceOf(List).isRequired,
 }
 
 function mapStateToProps(state) {
