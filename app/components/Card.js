@@ -13,5 +13,5 @@ export const Card = (props) => <div style={cardStyle(props.isInput)}>{props.chil
 
 Card.propTypes = {
   isInput: React.PropTypes.bool.isRequired,
-  children: React.PropTypes.object.isRequired,
+  children: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.object]),
 }

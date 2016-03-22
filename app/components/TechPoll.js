@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { TechCategoryListContainer } from './TechCategoryList'
 import { AddNewTechContainer } from './AddNewTech'
+
+import { ActiveVoteListContainer } from './ActiveVoteList'
 import { AddVoteContainer } from './AddVote'
 
 const techPollStyle = {
@@ -20,7 +22,11 @@ const addVoteContainerStyle = {
   alignItems: 'center',
 }
 
-export const TechPoll = ({ addVoteOpen }) => (
+const columnStyle = {
+  margin: '0 15px',
+}
+
+export const TechPoll = ({ isAddVoteVisible, isActiveVotesVisible }) => (
   <div>
     <h2>{'TechPoll'}</h2>
     <div className="tech-poll" style={techPollStyle}>
@@ -29,20 +35,23 @@ export const TechPoll = ({ addVoteOpen }) => (
         <AddNewTechContainer />
       </div>
       <div className="add-vote-list-vote-container" style={addVoteContainerStyle}>
-        { addVoteOpen ? <AddVoteContainer /> : null }
+        { isActiveVotesVisible ? <div style={columnStyle}><ActiveVoteListContainer /></div> : null }
+        { isAddVoteVisible ? <div style={columnStyle}><AddVoteContainer /></div> : null }
       </div>
     </div>
   </div>
 )
 
-TechPoll.propTypes = {
-  addVoteOpen: React.PropTypes.bool.isRequired,
-}
-
 function mapStateToProps(state) {
   return {
-    addVoteOpen: state.has('currentVote'),
+    isActiveVotesVisible: state.has('activeVotes'),
+    isAddVoteVisible: state.has('currentVote'),
   }
+}
+
+TechPoll.propTypes = {
+  isAddVoteVisible: React.PropTypes.bool.isRequired,
+  isActiveVotesVisible: React.PropTypes.bool.isRequired,
 }
 
 export const TechPollContainer = connect(
