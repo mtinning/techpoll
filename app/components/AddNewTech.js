@@ -11,7 +11,7 @@ function techExists(tech, item) {
 
 export class AddNewTech extends React.Component {
 
-  constructor(props, context) {
+  constructor() {
     super()
     this.state = { tech: '', category: '', warning: '' }
   }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
 import * as actionCreators from '../store/action-creators'
+import { connectToRepository } from '../connectors/connect-to-repository'
 
 const submitUpVote = (submitVote, tech) => () => {
   submitVote(tech, { score: 1, comment: '' })
@@ -51,6 +52,7 @@ TechCard.propTypes = {
   submitVote: React.PropTypes.func.isRequired,
   viewVotes: React.PropTypes.func.isRequired,
   openAddVote: React.PropTypes.func.isRequired,
+  repository: React.PropTypes.object.isRequired,
 }
 
 function mapDispatchToProps(dispatch) {
@@ -59,26 +61,6 @@ function mapDispatchToProps(dispatch) {
     viewVotes: actionCreators.viewVotes,
     openAddVote: actionCreators.openAddVote,
   }, dispatch)
-}
-
-const connectToRepository = (WrappedComponent) => {
-  class ConnectedToRepository extends React.Component {
-    constructor(props, context) {
-      super(props, context)
-      this.repository = context.repository
-      this.props = props
-    }
-
-    render() {
-      return React.createElement(WrappedComponent, {...this.props, repository: this.repository})
-    }
-  }
-
-  ConnectedToRepository.contextTypes = {
-    repository: React.PropTypes.object.isRequired
-  }
-
-  return ConnectedToRepository
 }
 
 export const TechCardContainer = connect(
