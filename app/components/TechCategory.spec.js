@@ -1,4 +1,4 @@
-/* global describe, it, after */
+/* global describe, it, after, before */
 /* eslint no-unused-expressions: 0*/
 
 import React from 'react'
@@ -10,10 +10,14 @@ import { TechCategory } from './TechCategory'
 
 describe('TechCategory', () => {
   const techList = List(['ham', 'eggs', 'salmon'])
-  const mockTechListComponent = TestUtils.mock('TechList')
-  const techCategory = TestUtils.render(
-    <TechCategory categoryName="kerplunk" techList={techList} />
-  )
+  let mockTechListComponent
+  let techCategory
+  before(() => {
+    mockTechListComponent = TestUtils.mock('TechList')
+    techCategory = TestUtils.render(
+      <TechCategory categoryName="kerplunk" techList={techList} />
+    )
+  })
 
   after(() => mockTechListComponent.unmock())
 

@@ -25,15 +25,18 @@ class MockComponent {
   constructor(reactComponentName) {
     this.name = reactComponentName
     mocks[this.name] = this.render.bind(this)
+    this.count = 0
   }
 
   render(props) {
-    this.props = props
+    if (this.count === 0) this.props = props
+    else delete this.props
+    this[this.count++] = { props }
     return <div></div>
   }
 
   reset() {
-    this.props = null
+    delete this.props
   }
 
   unmock() {
