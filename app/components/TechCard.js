@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
+import { Card } from './Card'
 import * as actionCreators from '../store/action-creators'
 
 const submitUpVote = (submitVote, tech) => () => {
@@ -17,26 +18,46 @@ const handleAddVoteClicked = (openAddVote, tech) => () => {
   openAddVote(tech)
 }
 
+const buttonContainerStyle = {
+  margin: '5px 0',
+}
+
+const techNameStyle = {
+  fontWeight: 'bold',
+}
+
+const techScoreStyle = {
+  fontWeight: 'bold',
+  float: 'right',
+  fontSize: '24px',
+}
+
 export const TechCard = ({ tech, submitVote, openAddVote }) => (
-  <div>
-    <div className="tech-name">{tech.get('name')}</div>
-    <div className="tech-score">Score: {tech.get('score')}</div>
-    <button
-      className="button vote-button upvote-button"
-      onClick={submitUpVote(submitVote, tech)}
-    >
-      Vote Up!
-    </button>
-    <button
-      className="button vote-button downvote-button"
-      onClick={submitDownVote(submitVote, tech)}
-    >
-      Vote Down!
-    </button>
-    <button onClick={handleAddVoteClicked(openAddVote, tech)}>
-      Add Comment
-    </button>
-  </div>
+  <Card isInput={false}>
+    <div className="score-header">
+      <span className="tech-name" style={techNameStyle}>{tech.get('name')}</span>
+      <span className="tech-score" style={techScoreStyle}>{tech.get('score')}</span>
+    </div>
+    <div className="votes" style={buttonContainerStyle}>
+      <button
+        className="button vote-button upvote-button"
+        onClick={submitUpVote(submitVote, tech)}
+      >
+        Vote Up!
+      </button>
+      <button
+        className="button vote-button downvote-button"
+        onClick={submitDownVote(submitVote, tech)}
+      >
+        Vote Down!
+      </button>
+    </div>
+    <div className="open-add-comment-container" style={buttonContainerStyle}>
+      <button onClick={handleAddVoteClicked(openAddVote, tech)}>
+        Add Comment
+      </button>
+    </div>
+  </Card>
 )
 
 TechCard.propTypes = {

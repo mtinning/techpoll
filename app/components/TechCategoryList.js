@@ -4,6 +4,10 @@ import { List } from 'immutable'
 
 import { TechCategory } from './TechCategory'
 
+const listStyle = {
+  width: '300px',
+}
+
 export const TechCategoryList = ({ techList }) => {
   const appendItem = (categories, item) => {
     const update = {}
@@ -20,7 +24,7 @@ export const TechCategoryList = ({ techList }) => {
   const categories = techList.reduce(appendItem, {})
 
   return (
-    <div>
+    <div style={listStyle}>
       {Object.keys(categories).map(c =>
         <TechCategory
           key={`category-${c}`}

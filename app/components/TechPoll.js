@@ -5,12 +5,33 @@ import { TechCategoryListContainer } from './TechCategoryList'
 import { AddNewTechContainer } from './AddNewTech'
 import { AddVoteContainer } from './AddVote'
 
+const techPollStyle = {
+  display: 'flex',
+}
+
+const techListContainerStyle = {
+
+}
+
+const addVoteContainerStyle = {
+  display: 'flex',
+  flexDirection: 'vertical',
+  margin: '0 auto',
+  alignItems: 'center',
+}
+
 export const TechPoll = ({ addVoteOpen }) => (
   <div>
     <h2>{'TechPoll'}</h2>
-    <TechCategoryListContainer />
-    <AddNewTechContainer />
-    { addVoteOpen ? <AddVoteContainer /> : null }
+    <div className="tech-poll" style={techPollStyle}>
+      <div className="tech-list-container" style={techListContainerStyle}>
+        <TechCategoryListContainer />
+        <AddNewTechContainer />
+      </div>
+      <div className="add-vote-list-vote-container" style={addVoteContainerStyle}>
+        { addVoteOpen ? <AddVoteContainer /> : null }
+      </div>
+    </div>
   </div>
 )
 

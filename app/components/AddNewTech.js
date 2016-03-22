@@ -3,10 +3,24 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 
+import { Card } from './Card'
 import { addNewTech } from '../store/action-creators'
 
 function techExists(tech, item) {
   return tech.findIndex(t => t.get('name') === item.name) >= 0
+}
+
+const headingStyle = {
+  fontWeight: 'bold',
+  verticalAlign: 'middle',
+}
+
+const inputStyle = {
+  float: 'right',
+}
+
+const propertyStyle = {
+  margin: '10px 0',
 }
 
 export class AddNewTech extends React.Component {
@@ -47,36 +61,40 @@ export class AddNewTech extends React.Component {
     }
 
     return (
-      <div>
+      <Card isInput>
         <form name="addTechForm" onSubmit={handleSubmit}>
-          Tech:
+          <div style={propertyStyle}>
+            <span style={headingStyle}>Tech Name</span>
             <input type="text"
               placeholder="tech name"
               value={this.state.tech}
               onChange={handleTechChange}
               required
+              style={inputStyle}
             />
             {
               !!this.state.warning ?
               <span className="validation-error">{this.state.warning}</span> :
               null
             }
-            <br />
-          Category:
+          </div>
+          <div style={propertyStyle}>
+            <span style={headingStyle}>Category</span>
             <select id="category"
               value={this.state.category}
               onChange={handleCategoryChange}
               required
+              style={inputStyle}
             >
                 <option value="" disabled>choose one...</option>
                 <option>web</option>
                 <option>back_end</option>
                 <option>dev_ops</option>
             </select>
-            <br />
+          </div>
           <input type="submit" value="Post" />
         </form>
-      </div>
+      </Card>
     )
   }
 }

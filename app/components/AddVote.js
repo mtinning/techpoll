@@ -3,7 +3,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
+import { Card } from './Card'
 import * as actionCreators from '../store/action-creators'
+
+const techNameStyle = {
+  fontWeight: 'bold',
+}
+
+const commentStyle = {
+  width: '250px',
+  height: '84px',
+  resize: 'none',
+  fontFamily: 'Helvetica',
+  padding: '5px',
+}
 
 export class AddVote extends React.Component {
 
@@ -14,22 +27,23 @@ export class AddVote extends React.Component {
   }
 
   render() {
-    const { closeAddVote } = this.props
+    const { currentVote, closeAddVote } = this.props
     const handleSubmit = () => this.submit()
     const setForm = f => {
       this.form = f
     }
 
-    return (<div>
+    return (
+    <Card isInput>
       <form ref={setForm}>
-        Comment:<br />
-        <input type="text" name="comment" /><br />
+        Comment on <span style={techNameStyle}>{currentVote.getIn(['tech', 'name'])}</span>:<br />
+        <textarea name="comment" style={commentStyle} /><br />
         <input type="radio" name="score" value="+1" defaultChecked />+1<br />
         <input type="radio" name="score" value="-1" />-1<br />
       </form>
       <button onClick={handleSubmit}>Submit Vote</button>
       <button onClick={closeAddVote}>Cancel</button>
-    </div>)
+    </Card>)
   }
 }
 

@@ -29,7 +29,7 @@ describe('TechCard', () => {
 
   it('displays the score of the tech', () => {
     const scoreNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'tech-score')
-    expect(scoreNode.textContent).to.equal('Score: 3')
+    expect(scoreNode.textContent).to.equal('3')
   })
 
   describe('on upvote button click', () => {
