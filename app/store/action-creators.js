@@ -20,15 +20,23 @@ export function addNewTech(item) {
   }
 }
 
+let getVotesSubscription
+
 export const viewVotes = (item, techRepository) => (dispatch) => {
   const action = {
     type: 'VIEW_VOTES',
     item,
   }
+
+  if (getVotesSubscription) {
+    getVotesSubscription.unsubscribe()
+  }
+
   dispatch(action)
-  techRepository
-    .getVotes(item.get('id'))
-    .then(votes => dispatch({ ...action, votes }))
+
+  getVotesSubscription = techRepository
+                          .getVotes(item.get('id'))
+                          .subscribe(votes => dispatch({ ...action, votes }))
 }
 
 export function openAddVote(item) {

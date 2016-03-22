@@ -27,6 +27,7 @@ System.config({
     "react-router": "npm:react-router@2.0.1",
     "redux": "npm:redux@3.3.1",
     "redux-thunk": "npm:redux-thunk@2.0.1",
+    "rxjs": "npm:rxjs@5.0.0-beta.3",
     "scss": "github:mobilexag/plugin-sass@0.3.0",
     "sinon": "npm:sinon@1.17.3",
     "sinon-chai": "npm:sinon-chai@2.8.0",
@@ -435,6 +436,10 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:ripemd160@1.0.1": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:rxjs@5.0.0-beta.3": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
