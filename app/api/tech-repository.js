@@ -15,4 +15,5 @@ export default {
   addNewTech: (item, onSuccess) => {
     $.post('/api/tech', item, callIfDefined(onSuccess))
   },
+  getVotes: (itemId, onSuccess) => $.get(`/api/tech/${itemId}/votes`, onSuccess),
 }

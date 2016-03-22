@@ -26,6 +26,7 @@ System.config({
     "react-redux": "npm:react-redux@4.4.0",
     "react-router": "npm:react-router@2.0.1",
     "redux": "npm:redux@3.3.1",
+    "redux-thunk": "npm:redux-thunk@2.0.1",
     "scss": "github:mobilexag/plugin-sass@0.3.0",
     "sinon": "npm:sinon@1.17.3",
     "sinon-chai": "npm:sinon-chai@2.8.0",

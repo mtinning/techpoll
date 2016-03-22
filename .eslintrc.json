@@ -3,7 +3,9 @@
     "plugins": [
         "react"
     ],
+    "parser": "babel-eslint",
     "rules": {
+      "strict": 0,
       "semi": ["error", "never"],
       "quote-props": ["error", "consistent"],
       "new-cap": ["error", {

@@ -5,7 +5,9 @@ import ReactDOM from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
+import { RepoProvider } from './providers/repo-provider'
 import { App } from './components/App'
 import { TechPollContainer } from './components/TechPoll'
 import reducer from './store/reducer'
@@ -21,6 +23,7 @@ const routes = (
 
 const finalCreateStore = compose(
   applyMiddleware(apiActionMiddleware(techRepository)),
+  applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
@@ -32,7 +35,9 @@ techRepository.getTech(tech => {
   store.dispatch(setState({ tech }))
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={hashHistory}>{routes}</Router>
+      <RepoProvider repository={techRepository}>
+        <Router history={hashHistory}>{routes}</Router>
+      </RepoProvider>
     </Provider>,
     rootNode
   )

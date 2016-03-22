@@ -20,10 +20,25 @@ export function addNewTech(item) {
   }
 }
 
+export const viewVotes = (item, techRepository) => (dispatch) => {
+  const action = {
+    type: 'VIEW_VOTES',
+    item,
+  }
+  dispatch(action)
+  techRepository.getVotes(item.get('id'), votes => dispatch({ ...action, votes }))
+}
+
 export function openAddVote(item) {
   return {
     type: 'OPEN_ADD_VOTE',
     item,
+  }
+}
+
+export function closeVotes() {
+  return {
+    type: 'CLOSE_VOTES',
   }
 }
 
