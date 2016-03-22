@@ -2,7 +2,7 @@ import React from 'react'
 
 const style = {
   margin: '0 auto',
-  maxWidth: '1200px',
+  maxWidth: '1400px',
 }
 
 export const App = (props) => (

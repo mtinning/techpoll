@@ -3,42 +3,19 @@ import { connect } from 'react-redux'
 
 import { TechCategoryListContainer } from './TechCategoryList'
 import { AddNewTechContainer } from './AddNewTech'
-
 import { ActiveVoteListContainer } from './ActiveVoteList'
 import { AddVoteContainer } from './AddVote'
-
-const techPollStyle = {
-  display: 'flex',
-}
-
-const techListContainerStyle = {
-
-}
-
-const addVoteContainerStyle = {
-  display: 'flex',
-  flexDirection: 'vertical',
-  margin: '0 auto',
-  alignItems: 'center',
-}
-
-const columnStyle = {
-  margin: '0 15px',
-}
+import { ColumnView } from './ColumnView'
 
 export const TechPoll = ({ isAddVoteVisible, isActiveVotesVisible }) => (
   <div>
     <h2>{'TechPoll'}</h2>
-    <div className="tech-poll" style={techPollStyle}>
-      <div className="tech-list-container" style={techListContainerStyle}>
-        <TechCategoryListContainer />
-        <AddNewTechContainer />
-      </div>
-      <div className="add-vote-list-vote-container" style={addVoteContainerStyle}>
-        { isActiveVotesVisible ? <div style={columnStyle}><ActiveVoteListContainer /></div> : null }
-        { isAddVoteVisible ? <div style={columnStyle}><AddVoteContainer /></div> : null }
-      </div>
-    </div>
+    <ColumnView className="tech-poll">
+      <TechCategoryListContainer />
+      <AddNewTechContainer />
+      { isActiveVotesVisible ? <ActiveVoteListContainer /> : null }
+      { isAddVoteVisible ? <AddVoteContainer /> : null }
+    </ColumnView>
   </div>
 )
 
