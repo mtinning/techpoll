@@ -31,7 +31,7 @@ const store = finalCreateStore(reducer)
 
 const rootNode = document.getElementById('app')
 
-techRepository.getTech(tech => {
+techRepository.getTech().then(tech => {
   store.dispatch(setState({ tech }))
   ReactDOM.render(
     <Provider store={store}>

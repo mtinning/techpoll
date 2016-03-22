@@ -26,7 +26,9 @@ export const viewVotes = (item, techRepository) => (dispatch) => {
     item,
   }
   dispatch(action)
-  techRepository.getVotes(item.get('id'), votes => dispatch({ ...action, votes }))
+  techRepository
+    .getVotes(item.get('id'))
+    .then(votes => dispatch({ ...action, votes }))
 }
 
 export function openAddVote(item) {
