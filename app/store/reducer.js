@@ -54,7 +54,10 @@ export default function (state = Map(), action) {
 
       if (nextState.has('activeVotes')
           && nextState.getIn(['activeVotes', 'tech']) === action.item) {
-        return viewVotes(nextState, nextTech, nextState.getIn(['activeVotes', 'votes']).push(fromJS(action.vote)))
+        return viewVotes(
+          nextState,
+          nextTech,
+          nextState.getIn(['activeVotes', 'votes']).push(fromJS(action.vote)))
       }
       return nextState
     }
