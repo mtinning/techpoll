@@ -13,15 +13,15 @@ const submitDownVote = (submitVote, tech) => () => {
   submitVote(tech, { score: -1, comment: '' })
 }
 
-const submitViewVotes = (viewVotes, tech) => () => {
-  viewVotes(tech)
+const submitViewVotes = (viewVotes, tech, repo) => () => {
+  viewVotes(tech, repo)
 }
 
 const handleAddVoteClicked = (openAddVote, tech) => () => {
   openAddVote(tech)
 }
 
-export const TechCard = ({ tech, submitVote, openAddVote, viewVotes }) => (
+export const TechCard = ({ tech, submitVote, openAddVote, viewVotes, repository }) => (
     <div>
       <div className="tech-name">{tech.get('name')}</div>
       <div className="tech-score">Score: {tech.get('score')}</div>
@@ -37,7 +37,7 @@ export const TechCard = ({ tech, submitVote, openAddVote, viewVotes }) => (
       >
         Vote Down!
       </button>
-      <button onClick={submitViewVotes(viewVotes, tech)}>
+      <button onClick={submitViewVotes(viewVotes, tech, repository)}>
         View Votes
       </button>
       <button onClick={handleAddVoteClicked(openAddVote, tech)}>
@@ -61,26 +61,27 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-function mapActionsToRepoActions(props, repo) {
-  return {
-    viewVotes: props.viewVotes(repo)
+const connectToRepository = (WrappedComponent) => {
+  class ConnectedToRepository extends React.Component {
+    constructor(props, context) {
+      super(props, context)
+      this.repository = context.repository
+      this.props = props
+    }
+
+    render() {
+      return React.createElement(WrappedComponent, {...this.props, repository: this.repository})
+    }
   }
+
+  ConnectedToRepository.contextTypes = {
+    repository: React.PropTypes.object.isRequired
+  }
+
+  return ConnectedToRepository
 }
-
-const connectToRepository = (mapActionsToRepoActions) => (component) => (props, context) => {
-  console.log('context', context)
-  console.log('repo:', context.repository)
-  console.log('props', props)
-  return component({...props, ...mapActionsToRepoActions(props, context.repository)})
-}
-
-const TechCardRepoContainer = connectToRepository(
-  mapActionsToRepoActions
-)(TechCard)
-
-console.log(TechCardRepoContainer)
 
 export const TechCardContainer = connect(
   null,
   mapDispatchToProps
-)(TechCardRepoContainer)
+)(connectToRepository(TechCard))
