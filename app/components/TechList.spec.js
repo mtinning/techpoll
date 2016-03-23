@@ -9,23 +9,23 @@ import { List, Map } from 'immutable'
 import { TechList } from './TechList'
 
 describe('TechList', () => {
-  let mockTechCardContainer
+  let mockTechCard
   const ham = Map({ name: 'ham' })
   const eggs = Map({ name: 'eggs' })
   const salmon = Map({ name: 'salmon' })
   before(() => {
     const techList = List([ham, eggs, salmon])
-    mockTechCardContainer = TestUtils.mock('Connect')
+    mockTechCard = TestUtils.mock('TechCard')
     TestUtils.render(
       <TechList techList={techList} />
     )
   })
 
-  after(() => mockTechCardContainer.unmock())
+  after(() => mockTechCard.unmock())
 
   it('renders a TechCardContainer for each item in techList', () => {
-    expect(mockTechCardContainer[0].props.tech).to.equal(ham)
-    expect(mockTechCardContainer[1].props.tech).to.equal(eggs)
-    expect(mockTechCardContainer[2].props.tech).to.equal(salmon)
+    expect(mockTechCard[0].props.tech).to.equal(ham)
+    expect(mockTechCard[1].props.tech).to.equal(eggs)
+    expect(mockTechCard[2].props.tech).to.equal(salmon)
   })
 })

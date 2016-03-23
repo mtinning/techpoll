@@ -2,6 +2,7 @@
 
 import React from 'react'
 import ReactTestUtils from 'react-addons-test-utils'
+import { Provider } from 'react-redux'
 
 const mocks = {}
 
@@ -11,14 +12,6 @@ React.createElement = (element, props, ...children) => {
     return reactCreateElement.apply(null, [mocks[element.name], props, ...children])
   }
   return reactCreateElement.apply(null, [element, props, ...children])
-}
-
-class Wrapper extends React.Component {
-  render() {
-    return (
-      <div>{this.props.children}</div>
-    )
-  }
 }
 
 class MockComponent {
@@ -44,10 +37,11 @@ class MockComponent {
   }
 }
 
+const store = { getState: () => {} }
 export default class TechPollTestUtils {
   static render(reactElement) {
     return ReactTestUtils.renderIntoDocument(
-      <Wrapper>{reactElement}</Wrapper>
+      <Provider store = {store}>{reactElement}</Provider>
     )
   }
 
