@@ -17,6 +17,7 @@ System.config({
     "babel": "npm:babel-core@5.8.35",
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "chai": "npm:chai@3.5.0",
+    "chai-immutable": "npm:chai-immutable@1.5.3",
     "core-js": "npm:core-js@1.2.6",
     "immutable": "npm:immutable@3.7.6",
     "jquery": "npm:jquery@2.2.1",
@@ -197,6 +198,9 @@ System.config({
       "ieee754": "npm:ieee754@1.1.6",
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:chai-immutable@1.5.3": {
+      "chai": "npm:chai@3.5.0"
     },
     "npm:chai@3.5.0": {
       "assertion-error": "npm:assertion-error@1.0.1",
