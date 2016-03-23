@@ -1,19 +1,10 @@
 import $ from 'jquery'
-
-// Returns a function that calls the provided function if it is defined
-const callIfDefined = (fn) => (data) => {
-  if (fn) {
-    fn(data)
-  }
-}
+import { Observable } from 'rxjs'
 
 export default {
-  getTech: (onSuccess) => $.get('/api/tech', callIfDefined(onSuccess)),
-  addVote: (itemId, vote, onSuccess) => {
-    $.post(`/api/tech/${itemId}/votes`, vote, callIfDefined(onSuccess))
-  },
-  addNewTech: (item, onSuccess) => {
-    $.post('/api/tech', item, callIfDefined(onSuccess))
-  },
-  getVotes: (itemId, onSuccess) => $.get(`/api/tech/${itemId}/votes`, onSuccess),
+  getTech: () => Observable.fromPromise($.get('/api/tech').promise()),
+  addVote: (itemId, vote) =>
+    Observable.fromPromise($.post(`/api/tech/${itemId}/votes`, vote).promise()),
+  addNewTech: (item) => Observable.fromPromise($.post('/api/tech', item).promise()),
+  getVotes: (itemId) => Observable.fromPromise($.get(`/api/tech/${itemId}/votes`).promise()),
 }
