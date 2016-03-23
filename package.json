@@ -81,6 +81,7 @@
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "chai": "npm:chai@^3.5.0",
+      "chai-immutable": "npm:chai-immutable@^1.5.3",
       "core-js": "npm:core-js@^1.1.4",
       "sinon": "npm:sinon@^1.17.3",
       "sinon-chai": "npm:sinon-chai@^2.8.0",

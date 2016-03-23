@@ -9,29 +9,16 @@ const listStyle = {
 }
 
 export const TechCategoryList = ({ techList }) => {
-  const appendItem = (categories, item) => {
-    const update = {}
-    const categoryId = item.get('categoryId')
-    if (categoryId in categories) {
-      update[categoryId] = categories[categoryId].push(item)
-    } else {
-      update[categoryId] = List.of(item)
-    }
-
-    return Object.assign({}, categories, update)
-  }
-
-  const categories = techList.reduce(appendItem, {})
-
+  const categories = techList.groupBy(tech => tech.get('categoryId'))
   return (
     <div style={listStyle}>
-      {Object.keys(categories).map(c =>
+      {categories.keySeq().map(c =>
         <TechCategory
           key={`category-${c}`}
           categoryName={c}
-          techList={categories[c]}
+          techList={categories.get(c)}
         />
-        )}
+      )}
     </div>
   )
 }

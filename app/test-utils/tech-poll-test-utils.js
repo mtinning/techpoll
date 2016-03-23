@@ -3,6 +3,7 @@
 import React from 'react'
 import ReactTestUtils from 'react-addons-test-utils'
 import { Provider } from 'react-redux'
+import { RepoProvider } from '../providers/repo-provider'
 
 const mocks = {}
 
@@ -18,18 +19,22 @@ class MockComponent {
   constructor(reactComponentName) {
     this.name = reactComponentName
     mocks[this.name] = this.render.bind(this)
-    this.count = 0
+    this.index = 0
   }
 
   render(props) {
-    if (this.count === 0) this.props = props
+    if (this.index === 0) this.props = props
     else delete this.props
-    this[this.count++] = { props }
+    this[this.index++] = { props }
     return <div></div>
   }
 
   reset() {
     delete this.props
+    for (let i = 0; i <= this.index; i++) {
+      delete this[i]
+    }
+    this.index = 0
   }
 
   unmock() {
@@ -37,11 +42,22 @@ class MockComponent {
   }
 }
 
-const store = { getState: () => {} }
+const store = {
+  getState: () => {},
+  subscribe: () => {},
+  dispatch: () => {},
+}
+
+const techRepository = {}
+
 export default class TechPollTestUtils {
   static render(reactElement) {
     return ReactTestUtils.renderIntoDocument(
-      <Provider store = {store}>{reactElement}</Provider>
+      <Provider store={store}>
+        <RepoProvider repository={techRepository}>
+          {reactElement}
+        </RepoProvider>
+      </Provider>
     )
   }
 

@@ -43,7 +43,7 @@ npm test
 - [Karma-chrome-launcher](https://github.com/karma-runner/karma-chrome-launcher) - launcher plugin for chrome
 - [Chai](http://chaijs.com/) - expressive assertions for Mocha
 - [Sinon](http://sinonjs.org/) - test spies
-- // TODO [chai-immutable](http://chaijs.com/plugins/chai-immutable/) - extends chai with assertions for Facebook's immutable library
+- [chai-immutable](http://chaijs.com/plugins/chai-immutable/) - extends chai with assertions for Facebook's immutable library
 - // TODO [chai-as-promised](http://chaijs.com/plugins/chai-as-promised/) - chai-style assertions for promises
 - [sinon-chai](https://github.com/domenic/sinon-chai) - chai-style assertions for sinon
 
