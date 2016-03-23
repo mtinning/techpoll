@@ -12,10 +12,3 @@ export const TechList = ({ techList }) => (
 TechList.propTypes = {
   techList: React.PropTypes.instanceOf(List).isRequired,
 }
-
-export const SortedTechList = ({ techList }) => (
-  <TechList techList={ techList.sort((a, b) => b.get('score') - a.get('score')) } />)
-
-SortedTechList.propTypes = {
-  techList: React.PropTypes.instanceOf(List).isRequired,
-}
