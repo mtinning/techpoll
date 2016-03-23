@@ -1,20 +1,20 @@
 import React from 'react'
 
-const techNameStyle = {
-  fontWeight: 'bold',
-}
+import CardHeader from 'material-ui/lib/card/card-header'
 
 const techScoreStyle = {
   fontWeight: 'bold',
   float: 'right',
   fontSize: '24px',
+  verticalAlign: 'top',
 }
 
 export const TechCardHeader = ({ name, score }) => (
-  <div className="score-header">
-    <span className="tech-name" style={techNameStyle}>{name}</span>
-    <span className="tech-score" style={techScoreStyle}>{score}</span>
-  </div>
+  <CardHeader className="score-header"
+    title={<span className="tech-name">{name}</span>}
+  >
+    <div className="tech-score" style={techScoreStyle}>{score}</div>
+  </CardHeader>
 )
 
 TechCardHeader.propTypes = {

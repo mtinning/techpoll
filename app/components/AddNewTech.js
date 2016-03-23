@@ -21,7 +21,7 @@ export class AddNewTech extends React.Component {
 
   render() {
     const handleTechChange = e => this.setState({ tech: e.target.value })
-    const handleCategoryChange = e => this.setState({ category: e.target.value })
+    const handleCategoryChange = v => this.setState({ category: v })
 
     const handleSubmit = e => {
       e.preventDefault() // prevent browser submitting form

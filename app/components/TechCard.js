@@ -26,9 +26,12 @@ const handleAddVoteClicked = (openAddVote, tech) => () => {
 }
 
 export const TechCard = ({ tech, submitVote, openAddVote, viewVotes, repository }) => (
-  <Card isInput={false}>
-    <TechCardHeader name={tech.get('name')} score={tech.get('score')} />
+  <Card
+    isInput={false}
+    header={<TechCardHeader name={tech.get('name')} score={tech.get('score')} />}
+  >
     <ButtonGroup
+      className="votes"
       buttonDefinitions={
       [
         {
@@ -45,6 +48,7 @@ export const TechCard = ({ tech, submitVote, openAddVote, viewVotes, repository 
       }
     />
     <ButtonGroup
+      className="view-add-votes"
       buttonDefinitions={
       [
         {

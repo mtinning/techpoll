@@ -9,7 +9,6 @@ import { ColumnView } from './ColumnView'
 
 export const TechPoll = ({ isAddVoteVisible, isActiveVotesVisible }) => (
   <div>
-    <h2>{'TechPoll'}</h2>
     <ColumnView className="tech-poll">
       <TechCategoryListContainer />
       <AddNewTechContainer />

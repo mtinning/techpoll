@@ -2,16 +2,13 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
+import CardHeader from 'material-ui/lib/card/card-header'
 
 import { Card } from './Card'
 import { OptionInput } from './OptionInput'
 import { TextInput } from './TextInput'
 import { ButtonGroup } from './ButtonGroup'
 import * as actionCreators from '../store/action-creators'
-
-const techNameStyle = {
-  fontWeight: 'bold',
-}
 
 export class AddVote extends React.Component {
 
@@ -29,9 +26,11 @@ export class AddVote extends React.Component {
     }
 
     return (
-    <Card isInput>
+    <Card
+      isInput
+      header={<CardHeader title={`Comment on ${currentVote.getIn(['tech', 'name'])}`} />}
+    >
       <form ref={setForm}>
-        Comment on <span style={techNameStyle}>{currentVote.getIn(['tech', 'name'])}</span>:<br />
         <TextInput name="comment" type="multiline" /><br />
         <OptionInput type="radio" name="score" value="+1" options={['+1', '-1']} heading="Score" />
       </form>

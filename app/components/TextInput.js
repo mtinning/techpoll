@@ -44,10 +44,10 @@ export const TextInput =
 )
 
 TextInput.propTypes = {
-  heading: React.PropTypes.string.isRequired,
+  heading: React.PropTypes.string,
   placeholder: React.PropTypes.string,
-  value: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func,
   required: React.PropTypes.bool,
   warning: React.PropTypes.string,
   type: React.PropTypes.string,

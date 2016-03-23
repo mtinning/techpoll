@@ -36,7 +36,8 @@ describe('TechCard', () => {
     const upVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'upvote-button')
 
     beforeEach(() => {
-      TestUtils.Simulate.click(upVoteNode)
+      // The firstChild is due to a but in material-ui
+      TestUtils.Simulate.click(upVoteNode.firstChild)
     })
 
     it('submits an upvote once', () => {
@@ -53,7 +54,8 @@ describe('TechCard', () => {
     const downVoteNode = TestUtils.findRenderedDOMComponentWithClass(techCard, 'downvote-button')
 
     beforeEach(() => {
-      TestUtils.Simulate.click(downVoteNode)
+      // The firstChild is due to a but in material-ui
+      TestUtils.Simulate.click(downVoteNode.firstChild)
     })
 
     it('submits a downvote once', () => {

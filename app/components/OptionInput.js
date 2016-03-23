@@ -1,40 +1,44 @@
 import React from 'react'
 
+import RadioButtonGroup from 'material-ui/lib/radio-button-group'
+import RadioButton from 'material-ui/lib/radio-button'
+import SelectField from 'material-ui/lib/select-field'
+import MenuItem from 'material-ui/lib/menus/menu-item'
+
 import { Input } from './Input'
 
-function createOptionInput(value, onChange, required, placeholder, options) {
+const handleChange = (handler) => (e, i, v) => handler(v)
+
+function optionInput(value, onChange, required, placeholder, options) {
+  const menuItems = options.map(o => <MenuItem key={`option-${o}`} value={o} primaryText={o} />)
   return (
-    <select
-      value={value}
-      onChange={onChange}
-      required={required}
-    >
-      <option value="" disabled>{placeholder}</option>
-      {options.map(o => <option key={`option-${o}`}>{o}</option>)}
-    </select>
+    <SelectField value={value} onChange={handleChange(onChange)}>
+      {menuItems}
+    </SelectField>
   )
 }
 
-function createRadioInput(value, onChange, required, options, name) {
-  return options
-    .map(o =>
-         <input
-           type="radio"
-           name={name}
-           value={o}
-           defaultChecked={o === value}
-           key={`option-${o}`}
-         >{o}
-         </input>
-        )
+const radioButton = o => (
+  <RadioButton key={`option-${o}`}
+    value={o}
+    label={o}
+  />
+)
+
+function radioInput(value, onChange, required, options, name) {
+  return (
+    <RadioButtonGroup name={name} defaultSelected={value}>
+      {options.map(radioButton)}
+    </RadioButtonGroup>
+  )
 }
 
 export const OptionInput =
       ({ heading, placeholder, value, onChange, required, options, warning, type, name }) => (
   <Input heading={heading} warning={warning}>
     { type === 'radio'
-      ? createRadioInput(value, onChange, required, options, name)
-      : createOptionInput(value, onChange, required, placeholder, options)
+      ? radioInput(value, onChange, required, options, name)
+      : optionInput(value, onChange, required, placeholder, options)
     }
   </Input>
 )

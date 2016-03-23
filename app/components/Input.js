@@ -26,7 +26,7 @@ export const Input = ({ heading, warning, children }) => (
 )
 
 Input.propTypes = {
-  heading: React.PropTypes.string.isRequired,
+  heading: React.PropTypes.string,
   children: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]).isRequired,
   warning: React.PropTypes.string,
 }

@@ -65,11 +65,13 @@
     "dependencies": {
       "immutable": "npm:immutable@^3.7.6",
       "jquery": "npm:jquery@^2.2.1",
+      "material-ui": "npm:material-ui@^0.15.0-alpha.2",
       "react": "npm:react@^0.14.7",
       "react-addons-test-utils": "npm:react-addons-test-utils@^0.14.7",
       "react-dom": "npm:react-dom@^0.14.7",
       "react-redux": "npm:react-redux@^4.4.0",
       "react-router": "npm:react-router@^2.0.1",
+      "react-tap-event-plugin": "npm:react-tap-event-plugin@^0.2.2",
       "redux": "npm:redux@^3.3.1",
       "redux-thunk": "npm:redux-thunk@^2.0.1",
       "rxjs": "npm:rxjs@^5.0.0-beta.3",
