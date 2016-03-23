@@ -23,7 +23,7 @@ function viewVotes(state, item, votes) {
   if (votes) {
     return state
       .delete('loadingVotes')
-      .set('activeVotes', Map().set('tech', item).set('votes', fromJS(votes)))
+      .set('activeVotes', Map().set('tech', item).set('votes', votes))
   }
 
   return state.delete('activeVotes').set('loadingVotes', true)
@@ -48,20 +48,21 @@ export default function (state = Map(), action) {
     case 'CLOSE_ADD_VOTE':
       return closeAddVote(state)
     case 'VOTE': {
-      let nextState = state.delete('currentVote').update(
-        'tech',
-        v => v.map(t =>
-          t === action.item ? submitVote(t, action.vote) : t
-        )
-      )
+      const techIndex = state.get('tech').findIndex(t => t === action.item)
+      const nextTech = submitVote(state.getIn(['tech', techIndex]), action.vote)
+      const nextState = state.delete('currentVote').setIn(['tech', techIndex], nextTech)
+
       if (nextState.has('activeVotes')
           && nextState.getIn(['activeVotes', 'tech']) === action.item) {
-        nextState = nextState.updateIn(['activeVotes', 'votes'], v => v.push(fromJS(action.vote)))
+        return viewVotes(
+          nextState,
+          nextTech,
+          nextState.getIn(['activeVotes', 'votes']).push(fromJS(action.vote)))
       }
       return nextState
     }
     case 'VIEW_VOTES':
-      return viewVotes(state, action.item, action.votes)
+      return viewVotes(state, action.item, fromJS(action.votes))
     case 'CLOSE_VOTES':
       return state.delete('activeVotes')
     default:
