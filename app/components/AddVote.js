@@ -4,18 +4,13 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
 import { Card } from './Card'
+import { OptionInput } from './OptionInput'
+import { TextInput } from './TextInput'
+import { ButtonGroup } from './ButtonGroup'
 import * as actionCreators from '../store/action-creators'
 
 const techNameStyle = {
   fontWeight: 'bold',
-}
-
-const commentStyle = {
-  width: '250px',
-  height: '84px',
-  resize: 'none',
-  fontFamily: 'Helvetica',
-  padding: '5px',
 }
 
 export class AddVote extends React.Component {
@@ -37,12 +32,22 @@ export class AddVote extends React.Component {
     <Card isInput>
       <form ref={setForm}>
         Comment on <span style={techNameStyle}>{currentVote.getIn(['tech', 'name'])}</span>:<br />
-        <textarea name="comment" style={commentStyle} /><br />
-        <input type="radio" name="score" value="+1" defaultChecked />+1<br />
-        <input type="radio" name="score" value="-1" />-1<br />
+        <TextInput name="comment" type="multiline" /><br />
+        <OptionInput type="radio" name="score" value="+1" options={['+1', '-1']} heading="Score" />
       </form>
-      <button onClick={handleSubmit}>Submit Vote</button>
-      <button onClick={closeAddVote}>Cancel</button>
+      <ButtonGroup buttonDefinitions={
+        [
+          {
+            onClick: handleSubmit,
+            content: 'Submit Vote',
+          },
+          {
+            onClick: closeAddVote,
+            content: 'Cancel',
+          },
+        ]
+      }
+      />
     </Card>)
   }
 }

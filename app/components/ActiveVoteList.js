@@ -4,13 +4,9 @@ import { bindActionCreators } from 'redux'
 import { List, Map } from 'immutable'
 
 import { ActiveVote } from './ActiveVote'
+import { ButtonGroup } from './ButtonGroup'
 
 import * as actionCreators from '../store/action-creators'
-
-const submitCloseVotes = (closeVotes) => () => {
-  closeVotes()
-}
-
 
 export const ActiveVoteList = ({ activeVotes, closeVotes, tech }) => (
     // currently using index for key value.
@@ -20,11 +16,7 @@ export const ActiveVoteList = ({ activeVotes, closeVotes, tech }) => (
       <div>
         {activeVotes.map((v, i) => <ActiveVote key={`active-vote-${i}`} activeVote={v} />)}
       </div>
-      <div>
-        <button onClick={submitCloseVotes(closeVotes)}>
-          Close
-        </button>
-      </div>
+      <ButtonGroup buttonDefinitions={[{ onClick: closeVotes, content: 'Close' }]} />
     </div>
   )
 

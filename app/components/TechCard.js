@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
 import { Card } from './Card'
+import { TechCardHeader } from './TechCardHeader'
+import { ButtonGroup } from './ButtonGroup'
 import * as actionCreators from '../store/action-creators'
 import { connectToRepository } from '../connectors/connect-to-repository'
 
@@ -23,48 +25,41 @@ const handleAddVoteClicked = (openAddVote, tech) => () => {
   openAddVote(tech)
 }
 
-const buttonContainerStyle = {
-  margin: '5px 0',
-}
-
-const techNameStyle = {
-  fontWeight: 'bold',
-}
-
-const techScoreStyle = {
-  fontWeight: 'bold',
-  float: 'right',
-  fontSize: '24px',
-}
-
 export const TechCard = ({ tech, submitVote, openAddVote, viewVotes, repository }) => (
   <Card isInput={false}>
-    <div className="score-header">
-      <span className="tech-name" style={techNameStyle}>{tech.get('name')}</span>
-      <span className="tech-score" style={techScoreStyle}>{tech.get('score')}</span>
-    </div>
-    <div className="votes" style={buttonContainerStyle}>
-      <button
-        className="button vote-button upvote-button"
-        onClick={submitUpVote(submitVote, tech)}
-      >
-        Vote Up!
-      </button>
-      <button
-        className="button vote-button downvote-button"
-        onClick={submitDownVote(submitVote, tech)}
-      >
-        Vote Down!
-      </button>
-    </div>
-    <div className="open-add-comment-container" style={buttonContainerStyle}>
-      <button onClick={submitViewVotes(viewVotes, tech, repository)}>
-        View Votes
-      </button>
-      <button onClick={handleAddVoteClicked(openAddVote, tech)}>
-        Add Comment
-      </button>
-    </div>
+    <TechCardHeader name={tech.get('name')} score={tech.get('score')} />
+    <ButtonGroup
+      buttonDefinitions={
+      [
+        {
+          class: 'vote-button upvote-button',
+          onClick: submitUpVote(submitVote, tech),
+          content: 'Vote Up!',
+        },
+        {
+          class: 'vote-button downvote-button',
+          onClick: submitDownVote(submitVote, tech),
+          content: 'Vote Down!',
+        },
+      ]
+      }
+    />
+    <ButtonGroup
+      buttonDefinitions={
+      [
+        {
+          class: 'view-votes-button',
+          onClick: submitViewVotes(viewVotes, tech, repository),
+          content: 'View Votes',
+        },
+        {
+          class: 'add-comment-button',
+          onClick: handleAddVoteClicked(openAddVote, tech),
+          content: 'Add Comment',
+        },
+      ]
+      }
+    />
   </Card>
 )
 
