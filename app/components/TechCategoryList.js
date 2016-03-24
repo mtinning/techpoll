@@ -4,10 +4,14 @@ import { List } from 'immutable'
 
 import { TechCategory } from './TechCategory'
 
+const listStyle = {
+  width: '300px',
+}
+
 export const TechCategoryList = ({ techList }) => {
   const categories = techList.groupBy(tech => tech.get('categoryId'))
   return (
-    <div>
+    <div style={listStyle}>
       {categories.keySeq().map(c =>
         <TechCategory
           key={`category-${c}`}

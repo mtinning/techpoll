@@ -3,29 +3,30 @@ import { connect } from 'react-redux'
 
 import { TechCategoryListContainer } from './TechCategoryList'
 import { AddNewTechContainer } from './AddNewTech'
-
 import { ActiveVoteListContainer } from './ActiveVoteList'
 import { AddVoteContainer } from './AddVote'
+import { ColumnView } from './ColumnView'
 
-export const TechPoll = ({ addVoteOpen, isActiveVotesVisible }) => (
+export const TechPoll = ({ isAddVoteVisible, isActiveVotesVisible }) => (
   <div>
-    <h2>{'TechPoll'}</h2>
-    <TechCategoryListContainer />
-    { isActiveVotesVisible ? <ActiveVoteListContainer /> : null }
-    <AddNewTechContainer />
-    { addVoteOpen ? <AddVoteContainer /> : null }
+    <ColumnView className="tech-poll">
+      <TechCategoryListContainer />
+      <AddNewTechContainer />
+      { isActiveVotesVisible ? <ActiveVoteListContainer /> : null }
+      { isAddVoteVisible ? <AddVoteContainer /> : null }
+    </ColumnView>
   </div>
 )
 
 function mapStateToProps(state) {
   return {
     isActiveVotesVisible: state.has('activeVotes'),
-    addVoteOpen: state.has('currentVote'),
+    isAddVoteVisible: state.has('currentVote'),
   }
 }
 
 TechPoll.propTypes = {
-  addVoteOpen: React.PropTypes.bool.isRequired,
+  isAddVoteVisible: React.PropTypes.bool.isRequired,
   isActiveVotesVisible: React.PropTypes.bool.isRequired,
 }
 

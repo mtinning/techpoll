@@ -15,6 +15,10 @@ import { setState } from './store/action-creators'
 import apiActionMiddleware from './api/api-action-middleware'
 import techRepository from './api/tech-repository'
 
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+injectTapEventPlugin()
+
 const routes = (
 <Route component={App}>
   <Route path="/" component={TechPollContainer} />

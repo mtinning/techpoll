@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
 
+import { Card } from './Card'
+import { TextInput } from './TextInput'
+import { OptionInput } from './OptionInput'
 import { addNewTech } from '../store/action-creators'
 
 function techExists(tech, item) {
@@ -18,7 +21,7 @@ export class AddNewTech extends React.Component {
 
   render() {
     const handleTechChange = e => this.setState({ tech: e.target.value })
-    const handleCategoryChange = e => this.setState({ category: e.target.value })
+    const handleCategoryChange = v => this.setState({ category: v })
 
     const handleSubmit = e => {
       e.preventDefault() // prevent browser submitting form
@@ -48,34 +51,28 @@ export class AddNewTech extends React.Component {
 
     return (
       <div>
-        <form name="addTechForm" onSubmit={handleSubmit}>
-          Tech:
-            <input type="text"
+        <h4>Add New Tech</h4>
+        <Card isInput>
+          <form name="addTechForm" onSubmit={handleSubmit}>
+            <TextInput
+              heading="Tech Name"
               placeholder="tech name"
               value={this.state.tech}
               onChange={handleTechChange}
               required
+              warning={this.state.warning}
             />
-            {
-              !!this.state.warning ?
-              <span className="validation-error">{this.state.warning}</span> :
-              null
-            }
-            <br />
-          Category:
-            <select id="category"
-              value={this.state.category}
+            <OptionInput
+              heading="Category"
+              placeholder="choose one..."
               onChange={handleCategoryChange}
+              value={this.state.category}
               required
-            >
-                <option value="" disabled>choose one...</option>
-                <option>web</option>
-                <option>back_end</option>
-                <option>dev_ops</option>
-            </select>
-            <br />
-          <input type="submit" value="Post" />
-        </form>
+              options={['web', 'back_end', 'dev_ops']}
+            />
+            <input type="submit" value="Post" />
+          </form>
+        </Card>
       </div>
     )
   }
