@@ -113,6 +113,7 @@ describe('reducer', () => {
       activeVotes: null,
       tech: [
         {
+          id: 'tech_1',
           name: 'tech_1',
           category: 'cat_1',
           score: 0,
@@ -121,6 +122,7 @@ describe('reducer', () => {
     }
 
     const newTechItemJs = {
+      id: 'tech_2',
       name: 'tech_2',
       category: 'cat_2',
       score: 0,

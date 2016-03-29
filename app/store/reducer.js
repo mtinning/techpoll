@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable'
+import { Map, fromJS, List } from 'immutable'
 
 function currentVote(state = null, action) {
   switch (action.type) {
@@ -13,18 +13,14 @@ function currentVote(state = null, action) {
   }
 }
 
-
 function viewVotes(item, votes) {
-  if (votes) {
-    return Map().setIn(['tech', 'name'], item.get('name')).set('votes', votes)
-  }
-  return null
+  return Map().set('techId', item.get('id')).set('votes', votes)
 }
 
 function activeVotes(state = null, action) {
   switch (action.type) {
     case 'VOTE': {
-      if (state && state.getIn(['tech', 'name']) === action.item.get('name')) {
+      if (state && state.get('techId') === action.item.get('id')) {
         return viewVotes(action.item, state.get('votes').push(fromJS(action.vote)))
       }
       return state
@@ -40,7 +36,7 @@ function activeVotes(state = null, action) {
 
 function addTech(state, item) {
   // check if item being added already exists
-  const index = state.findIndex(t => t.get('name') === item.name)
+  const index = state.findIndex(t => t.get('id') === item.id)
 
   if (index >= 0) {
     return state
@@ -48,7 +44,7 @@ function addTech(state, item) {
   return state.push(fromJS(item))
 }
 
-function tech(state = null, action) {
+function tech(state = List(), action) {
   switch (action.type) {
     case 'ADD_NEW_TECH':
       return addTech(state, action.item)
