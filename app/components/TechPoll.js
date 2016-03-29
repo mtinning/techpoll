@@ -20,8 +20,8 @@ export const TechPoll = ({ isAddVoteVisible, isActiveVotesVisible }) => (
 
 function mapStateToProps(state) {
   return {
-    isActiveVotesVisible: state.has('activeVotes'),
-    isAddVoteVisible: state.has('currentVote'),
+    isActiveVotesVisible: !!state.get('activeVotes'),
+    isAddVoteVisible: !!state.get('currentVote'),
   }
 }
 

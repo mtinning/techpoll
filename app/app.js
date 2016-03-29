@@ -11,7 +11,7 @@ import { RepoProvider } from './providers/repo-provider'
 import { App } from './components/App'
 import { TechPollContainer } from './components/TechPoll'
 import reducer from './store/reducer'
-import { setState } from './store/action-creators'
+import { setTech } from './store/action-creators'
 import apiActionMiddleware from './api/api-action-middleware'
 import techRepository from './api/tech-repository'
 
@@ -36,7 +36,7 @@ const store = finalCreateStore(reducer)
 const rootNode = document.getElementById('app')
 
 techRepository.getTech().subscribe(tech => {
-  store.dispatch(setState({ tech }))
+  store.dispatch(setTech(tech))
   ReactDOM.render(
     <Provider store={store}>
       <RepoProvider repository={techRepository}>

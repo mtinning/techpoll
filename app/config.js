@@ -29,6 +29,7 @@ System.config({
     "react-router": "npm:react-router@2.0.1",
     "react-tap-event-plugin": "npm:react-tap-event-plugin@0.2.2",
     "redux": "npm:redux@3.3.1",
+    "redux-immutable": "npm:redux-immutable@3.0.6",
     "redux-thunk": "npm:redux-thunk@2.0.1",
     "rxjs": "npm:rxjs@5.0.0-beta.3",
     "scss": "github:mobilexag/plugin-sass@0.3.0",
@@ -519,6 +520,10 @@ System.config({
       "lodash": "npm:lodash@4.6.1",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "react": "npm:react@0.14.7"
+    },
+    "npm:redux-immutable@3.0.6": {
+      "immutable": "npm:immutable@3.7.6",
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:redux@3.3.1": {
       "lodash": "npm:lodash@4.6.1",

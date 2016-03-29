@@ -1,14 +1,17 @@
 /* global describe, it*/
 
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
 import { Map, fromJS } from 'immutable'
+import chaiImmutable from 'chai-immutable'
+
+chai.use(chaiImmutable)
 
 import reducer from './reducer'
 
 describe('reducer', () => {
   describe('when SET_STATE action is dispatched', () => {
     const initialState = Map()
-    const stateToTransitionTo = { tech: [
+    const tech = [
       {
         name: 'tech_1',
         category: 'cat_1',
@@ -19,22 +22,29 @@ describe('reducer', () => {
         category: 'cat_2',
         score: 0,
       },
-    ] }
+    ]
+    const stateToTransitionTo = {
+      currentVote: null,
+      activeVotes: null,
+      tech,
+    }
 
     const action = {
-      type: 'SET_STATE',
-      state: stateToTransitionTo,
+      type: 'SET_TECH',
+      tech,
     }
 
     it('sets the state', () => {
       const nextState = reducer(initialState, action)
       const expectedState = fromJS(stateToTransitionTo)
-      expect(nextState).to.deep.equal(expectedState)
+      expect(nextState).to.equal(expectedState)
     })
   })
 
   describe('when VOTE action is dispatched', () => {
     const initialStateJs = {
+      currentVote: null,
+      activeVotes: null,
       tech: [
         {
           name: 'tech_1',
@@ -64,27 +74,27 @@ describe('reducer', () => {
 
     it('increments the correct items vote count', () => {
       const nextState = reducer(initialState, action)
-      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+      expect(nextState).to.equal(stateToTransitionTo)
     })
   })
 
   describe('when VOTE action is dispatched and add comment is open', () => {
+    const tech = {
+      name: 'tech_1',
+      category: 'cat_1',
+      score: 0,
+    }
+
     const initialStateJs = {
-      tech: [
-        {
-          name: 'tech_1',
-          category: 'cat_1',
-          score: 0,
-        },
-      ],
+      currentVote: tech,
+      activeVotes: null,
+      tech: [tech],
     }
 
     const initialState = fromJS(initialStateJs)
 
-    const tech = initialState.getIn(['tech', '0'])
-    const stateWithAddVoteOpen = initialState.set('currentVote', Map().set('tech', tech))
-    const stateToTransitionTo = stateWithAddVoteOpen
-      .delete('currentVote')
+    const stateToTransitionTo = initialState
+      .set('currentVote', null)
       .setIn(['tech', '0', 'score'], 1)
 
     const action = {
@@ -97,15 +107,18 @@ describe('reducer', () => {
     }
 
     it('removes currentVote', () => {
-      const nextState = reducer(stateWithAddVoteOpen, action)
-      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+      const nextState = reducer(initialState, action)
+      expect(nextState).to.equal(stateToTransitionTo)
     })
   })
 
   describe('when ADD_NEW_TECH action is dispatched', () => {
     const initialStateJs = {
+      currentVote: null,
+      activeVotes: null,
       tech: [
         {
+          id: 'tech_1',
           name: 'tech_1',
           category: 'cat_1',
           score: 0,
@@ -114,6 +127,7 @@ describe('reducer', () => {
     }
 
     const newTechItemJs = {
+      id: 'tech_2',
       name: 'tech_2',
       category: 'cat_2',
       score: 0,
@@ -121,9 +135,9 @@ describe('reducer', () => {
 
     const initialState = fromJS(initialStateJs)
     // append new tech to initial array
-    const initialStateAndNewTech = {
-      tech: initialStateJs.tech.concat(newTechItemJs),
-    }
+    const initialStateAndNewTech = initialStateJs
+    initialStateAndNewTech.tech = initialStateJs.tech.concat(newTechItemJs)
+
     const stateToTransitionTo = fromJS(initialStateAndNewTech)
 
     it('adds a new tech item', () => {
@@ -133,7 +147,7 @@ describe('reducer', () => {
       }
 
       const nextState = reducer(initialState, action)
-      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+      expect(nextState).to.equal(stateToTransitionTo)
     })
 
     it('does not add a new item if the item is a duplicate', () => {
@@ -143,24 +157,23 @@ describe('reducer', () => {
       }
 
       const nextState = reducer(initialState, action)
-      expect(nextState.toJS()).to.deep.equal(initialState.toJS())
+      expect(nextState).to.equal(initialState)
     })
   })
 
   describe('when OPEN_ADD_VOTE action is dispatched', () => {
+    const tech = {
+      name: 'tech_1',
+      categoryId: 'cat_1',
+      score: 0,
+    }
     const initialStateJs = {
-      tech: [
-        {
-          name: 'tech_1',
-          categoryId: 'cat_1',
-          score: 0,
-        },
-      ],
+      currentVote: null,
+      activeVotes: null,
+      tech: [tech],
     }
 
     const initialState = fromJS(initialStateJs)
-
-    const tech = initialState.getIn(['tech', '0'])
 
     const stateToTransitionTo = initialState.set('currentVote', Map().set('tech', tech))
 
@@ -171,36 +184,33 @@ describe('reducer', () => {
 
     it('sets the currentVote', () => {
       const nextState = reducer(initialState, action)
-      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+      expect(nextState).to.equal(stateToTransitionTo)
     })
   })
 
   describe('when CLOSE_ADD_VOTE action is dispatched', () => {
+    const tech = {
+      name: 'tech_1',
+      categoryId: 'cat_1',
+      score: 0,
+    }
     const initialStateJs = {
-      tech: [
-        {
-          name: 'tech_1',
-          categoryId: 'cat_1',
-          score: 0,
-        },
-      ],
+      currentVote: tech,
+      activeVotes: null,
+      tech: [tech],
     }
 
     const initialState = fromJS(initialStateJs)
 
-    const tech = initialState.getIn(['tech', '0'])
-
-    const addVoteOpenState = initialState.set('currentVote', Map().set('tech', tech))
-
-    const stateToTransitionTo = addVoteOpenState.delete('currentVote')
+    const stateToTransitionTo = initialState.set('currentVote', null)
 
     const action = {
       type: 'CLOSE_ADD_VOTE',
     }
 
     it('removes the currentVote', () => {
-      const nextState = reducer(addVoteOpenState, action)
-      expect(nextState.toJS()).to.deep.equal(stateToTransitionTo.toJS())
+      const nextState = reducer(initialState, action)
+      expect(nextState).to.equal(stateToTransitionTo)
     })
   })
 })
