@@ -11,7 +11,7 @@ import reducer from './reducer'
 describe('reducer', () => {
   describe('when SET_STATE action is dispatched', () => {
     const initialState = Map()
-    const stateToTransitionTo = { tech: [
+    const tech = [
       {
         name: 'tech_1',
         category: 'cat_1',
@@ -22,17 +22,22 @@ describe('reducer', () => {
         category: 'cat_2',
         score: 0,
       },
-    ] }
+    ]
+    const stateToTransitionTo = {
+      currentVote: null,
+      activeVotes: null,
+      tech,
+    }
 
     const action = {
-      type: 'SET_STATE',
-      state: stateToTransitionTo,
+      type: 'SET_TECH',
+      tech,
     }
 
     it('sets the state', () => {
       const nextState = reducer(initialState, action)
       const expectedState = fromJS(stateToTransitionTo)
-      expect(nextState).to.deep.equal(expectedState)
+      expect(nextState).to.equal(expectedState)
     })
   })
 

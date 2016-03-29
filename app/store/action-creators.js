@@ -1,7 +1,7 @@
-export function setState(state) {
+export function setTech(tech) {
   return {
-    type: 'SET_STATE',
-    state,
+    type: 'SET_TECH',
+    tech,
   }
 }
 

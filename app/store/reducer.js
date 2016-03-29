@@ -1,12 +1,12 @@
+import { combineReducers } from 'redux-immutable'
 import { Map, fromJS, List } from 'immutable'
 
 function currentVote(state = null, action) {
   switch (action.type) {
-    case 'VOTE':
-      return null
     case 'OPEN_ADD_VOTE':
       return Map().set('tech', action.item)
     case 'CLOSE_ADD_VOTE':
+    case 'VOTE':
       return null
     default:
       return state
@@ -54,20 +54,15 @@ function tech(state = List(), action) {
       const nextState = state.set(techIndex, nextTech)
       return nextState
     }
+    case 'SET_TECH':
+      return fromJS(action.tech)
     default:
       return state
   }
 }
 
-export default function (state = Map(), action) {
-  switch (action.type) {
-    case 'SET_STATE':
-      return state.merge(action.state)
-    default:
-      return Map({
-        currentVote: currentVote(state.get('currentVote'), action),
-        activeVotes: activeVotes(state.get('activeVotes'), action),
-        tech: tech(state.get('tech'), action),
-      })
-  }
-}
+export default combineReducers({
+  currentVote,
+  activeVotes,
+  tech,
+})
