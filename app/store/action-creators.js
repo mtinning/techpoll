@@ -32,7 +32,7 @@ export const viewVotes = (item, techRepository) => (dispatch) => {
     getVotesSubscription.unsubscribe()
   }
 
-  dispatch(action)
+  // Could dispatch an action here to show a spinner
 
   getVotesSubscription = techRepository
                           .getVotes(item.get('id'))
